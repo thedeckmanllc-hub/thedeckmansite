@@ -65,7 +65,7 @@ export function BrutalistIndustrial() {
         left: 0,
         right: 0,
         zIndex: 100,
-        padding: '20px 48px',
+        padding: 'clamp(12px, 3vw, 20px) clamp(16px, 5vw, 48px)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -77,14 +77,14 @@ export function BrutalistIndustrial() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {/* Logo */}
           <div style={{
-            height: '50px',
-            width: '120px',
+            height: 'clamp(40px, 8vw, 50px)',
+            width: 'clamp(90px, 15vw, 120px)',
             background: 'linear-gradient(135deg, #c9a87c 0%, #b87333 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontFamily: '"Bebas Neue", sans-serif',
-            fontSize: '24px',
+            fontSize: 'clamp(18px, 4vw, 24px)',
             letterSpacing: '2px',
             color: '#1a1512'
           }}>
@@ -92,16 +92,21 @@ export function BrutalistIndustrial() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '48px', alignItems: 'center' }}>
+        <div style={{ display: window.innerWidth < 768 ? 'none' : 'flex', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'center' }} className="hidden md:flex">
           {['Services', 'Projects', 'Process', 'Contact'].map((item, i) => (
-            <a key={i} href={`#${item.toLowerCase()}`} className="nav-link">
+            <a key={i} href={`#${item.toLowerCase()}`} className="nav-link" style={{ fontSize: 'clamp(10px, 1.5vw, 11px)' }}>
               {item.toUpperCase()}
             </a>
           ))}
-          <button className="brutalist-btn" style={{ padding: '12px 24px' }}>
+          <button className="brutalist-btn" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(18px, 3vw, 24px)', fontSize: 'clamp(10px, 1.5vw, 12px)' }}>
             GET QUOTE
           </button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button className="brutalist-btn md:hidden" style={{ padding: '10px 20px', fontSize: '11px' }}>
+          MENU
+        </button>
       </nav>
 
       {/* Hero Section */}
@@ -111,34 +116,34 @@ export function BrutalistIndustrial() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '0 48px',
+        padding: 'clamp(60px, 10vh, 120px) clamp(16px, 5vw, 48px) clamp(40px, 8vh, 80px)',
         position: 'relative'
-      }}>
-        {/* Grid Lines */}
-        <div className="grid-line" style={{ left: '48px', top: 0, bottom: 0, width: '1px' }} />
-        <div className="grid-line" style={{ left: '33%', top: 0, bottom: 0, width: '1px' }} />
-        <div className="grid-line" style={{ left: '66%', top: 0, bottom: 0, width: '1px' }} />
-        <div className="grid-line" style={{ right: '48px', top: 0, bottom: 0, width: '1px' }} />
+      }} className="px-4 sm:px-6 lg:px-12">
+        {/* Grid Lines - Hidden on mobile */}
+        <div className="grid-line hidden lg:block" style={{ left: 'clamp(16px, 5vw, 48px)', top: 0, bottom: 0, width: '1px' }} />
+        <div className="grid-line hidden lg:block" style={{ left: '33%', top: 0, bottom: 0, width: '1px' }} />
+        <div className="grid-line hidden lg:block" style={{ left: '66%', top: 0, bottom: 0, width: '1px' }} />
+        <div className="grid-line hidden lg:block" style={{ right: 'clamp(16px, 5vw, 48px)', top: 0, bottom: 0, width: '1px' }} />
 
-        {/* Vertical Text */}
-        <div className="vertical-text" style={{
+        {/* Vertical Text - Hidden on mobile */}
+        <div className="vertical-text hidden lg:block" style={{
           position: 'absolute',
           left: '20px',
           top: '50%',
           transform: 'translateY(-50%)',
-          fontSize: '10px',
+          fontSize: 'clamp(8px, 1.2vw, 10px)',
           letterSpacing: '4px',
           color: '#5c4d3d'
         }}>
           PROFESSIONAL DECK SERVICES — USA
         </div>
 
-        <div style={{ maxWidth: '1400px', width: '100%', marginTop: '60px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '1400px', width: '100%', marginTop: 'clamp(20px, 5vh, 60px)', textAlign: 'center' }}>
           <p className="float-up stagger-1" style={{
-            fontSize: '13px',
-            letterSpacing: '5px',
+            fontSize: 'clamp(10px, 2vw, 13px)',
+            letterSpacing: 'clamp(2px, 1vw, 5px)',
             color: '#d4a574',
-            marginBottom: '32px',
+            marginBottom: 'clamp(20px, 4vh, 32px)',
             fontWeight: 600
           }}>
             SANDING • STAINING • RECONSTRUCTION
@@ -146,9 +151,9 @@ export function BrutalistIndustrial() {
 
           <h1 className="float-up stagger-2" style={{
             fontFamily: '"Bebas Neue", sans-serif',
-            fontSize: 'clamp(80px, 14vw, 180px)',
+            fontSize: 'clamp(48px, 12vw, 180px)',
             lineHeight: '0.9',
-            marginBottom: '56px',
+            marginBottom: 'clamp(28px, 6vh, 56px)',
             color: '#f5ede3',
             letterSpacing: '2px'
           }}>
@@ -158,44 +163,43 @@ export function BrutalistIndustrial() {
           </h1>
 
           <p className="float-up stagger-3" style={{
-            fontSize: '17px',
-            lineHeight: '1.9',
+            fontSize: 'clamp(14px, 2.5vw, 17px)',
+            lineHeight: '1.7',
             color: '#a89a8a',
             maxWidth: '700px',
-            marginBottom: '56px',
-            margin: '0 auto 56px',
-            fontWeight: 400
+            margin: '0 auto clamp(32px, 6vh, 56px)',
+            fontWeight: 400,
+            padding: '0 16px'
           }}>
             Expert deck restoration and construction services. From precision sanding
             to complete rebuilds, we transform weathered wood into stunning outdoor
             living spaces that stand the test of time.
           </p>
 
-          <div className="float-up stagger-4" style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="brutalist-btn" style={{ fontSize: '13px', padding: '18px 40px' }}>VIEW PROJECTS</button>
+          <div className="float-up stagger-4" style={{ display: 'flex', gap: 'clamp(12px, 3vw, 24px)', justifyContent: 'center', flexWrap: 'wrap', padding: '0 16px' }}>
+            <button className="brutalist-btn" style={{ fontSize: 'clamp(11px, 2vw, 13px)', padding: 'clamp(14px, 2.5vh, 18px) clamp(24px, 4vw, 40px)' }}>VIEW PROJECTS</button>
             <button className="brutalist-btn" style={{
               borderColor: '#6b5c4a',
               color: '#a89a8a',
-              fontSize: '13px',
-              padding: '18px 40px'
+              fontSize: 'clamp(11px, 2vw, 13px)',
+              padding: 'clamp(14px, 2.5vh, 18px) clamp(24px, 4vw, 40px)'
             }}>
               OUR PROCESS
             </button>
           </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <div style={{
+        {/* Scroll Indicator - Hidden on mobile */}
+        <div className="hidden md:flex" style={{
           position: 'absolute',
-          bottom: '48px',
+          bottom: 'clamp(24px, 5vh, 48px)',
           left: '50%',
           transform: 'translateX(-50%)',
-          display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: '12px'
         }}>
-          <span style={{ fontSize: '10px', letterSpacing: '3px', color: '#3d332a' }}>SCROLL</span>
+          <span style={{ fontSize: 'clamp(9px, 1.2vw, 10px)', letterSpacing: '3px', color: '#3d332a' }}>SCROLL</span>
           <div style={{
             width: '1px',
             height: '60px',

@@ -152,7 +152,7 @@ export function DarkLuxury() {
             </div>
           </motion.div>
 
-          <h1 className="font-montserrat text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none max-w-7xl mx-auto text-center">
+          <h1 className="font-montserrat text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 sm:mb-8 leading-none max-w-7xl mx-auto text-center px-4">
             <span className="block text-wood-light">Transform Your</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent via-wood-light to-accent">
               Outdoor Living
@@ -160,29 +160,29 @@ export function DarkLuxury() {
             <span className="block text-white">Experience</span>
           </h1>
 
-          <p className="text-xl md:text-2xl mb-16 text-wood-light/90 max-w-4xl mx-auto leading-relaxed font-light text-center">
+          <p className="text-lg sm:text-xl md:text-2xl mb-12 sm:mb-16 text-wood-light/90 max-w-4xl mx-auto leading-relaxed font-light text-center px-4">
             Expert deck restoration, refinishing, and maintenance services in Fallbrook, CA.
             <span className="block mt-2 text-accent">Where craftsmanship meets elegance.</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-5 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center mb-12 sm:mb-16 px-4">
             <Link
               href="#contact"
-              className="group bg-accent text-white px-10 py-5 rounded-lg font-semibold text-lg hover:bg-accent/90 transition-all hover:shadow-2xl hover:shadow-accent/50 hover:-translate-y-1 inline-block"
+              className="group bg-accent text-white px-6 sm:px-10 py-4 sm:py-5 rounded-lg font-semibold text-base sm:text-lg hover:bg-accent/90 transition-all hover:shadow-2xl hover:shadow-accent/50 hover:-translate-y-1 inline-block"
             >
               <span className="flex items-center gap-2 justify-center">
                 Get Your Free Quote
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </span>
             </Link>
             <Link
               href={`tel:${contactInfo.phone}`}
-              className="bg-transparent border-2 border-wood-light text-wood-light px-10 py-5 rounded-lg font-semibold text-lg hover:bg-wood-light hover:text-dark transition-all inline-block"
+              className="bg-transparent border-2 border-wood-light text-wood-light px-6 sm:px-10 py-4 sm:py-5 rounded-lg font-semibold text-base sm:text-lg hover:bg-wood-light hover:text-dark transition-all inline-block"
             >
               <span className="flex items-center gap-2 justify-center">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 {contactInfo.phone}
@@ -191,7 +191,7 @@ export function DarkLuxury() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto px-4">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -199,10 +199,10 @@ export function DarkLuxury() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + index * 0.1, duration: 0.6 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border-2 border-accent/30 hover:border-accent transition-all"
+                className="p-6 sm:p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border-2 border-accent/30 hover:border-accent transition-all"
               >
-                <div className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light mb-3">{stat.number}</div>
-                <div className="text-base font-semibold text-wood-light uppercase tracking-wider">{stat.label}</div>
+                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light mb-2 sm:mb-3">{stat.number}</div>
+                <div className="text-sm sm:text-base font-semibold text-wood-light uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -227,10 +227,10 @@ export function DarkLuxury() {
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white mb-6 sm:mb-8 px-4">
               Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Projects</span>
             </h2>
-            <p className="text-2xl text-wood-light/80 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-wood-light/80 max-w-4xl mx-auto leading-relaxed px-4">
               See the transformation we bring to outdoor spaces
             </p>
           </motion.div>
