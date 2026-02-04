@@ -92,7 +92,7 @@ export function BrutalistIndustrial() {
           </div>
         </div>
 
-        <div style={{ display: window.innerWidth < 768 ? 'none' : 'flex', gap: 'clamp(24px, 4vw, 48px)', alignItems: 'center' }} className="hidden md:flex">
+        <div style={{ gap: 'clamp(24px, 4vw, 48px)', alignItems: 'center' }} className="hidden md:flex">
           {['Services', 'Projects', 'Process', 'Contact'].map((item, i) => (
             <a key={i} href={`#${item.toLowerCase()}`} className="nav-link" style={{ fontSize: 'clamp(10px, 1.5vw, 11px)' }}>
               {item.toUpperCase()}
