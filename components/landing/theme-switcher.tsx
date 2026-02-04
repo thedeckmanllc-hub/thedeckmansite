@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 
-type Variant = "brutalist-industrial" | "dark-luxury";
+type Variant = "brutalist-industrial" | "dark-luxury" | "professional-classic";
 
 interface ThemeSwitcherProps {
   variant: Variant;
@@ -23,6 +23,11 @@ const themes: Array<{
     id: "dark-luxury",
     name: "2",
     description: "Premium & Elegant",
+  },
+  {
+    id: "professional-classic",
+    name: "3",
+    description: "Professional & Classic",
   },
 ];
 

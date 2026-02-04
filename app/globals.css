@@ -85,6 +85,28 @@
   --radius: 0.75rem;
 }
 
+/* Theme: Professional Classic - Warm, professional, and trustworthy */
+.theme-professional-classic {
+  --background: oklch(0.17 0.02 50);
+  --foreground: oklch(0.94 0.02 75);
+  --card: oklch(0.22 0.025 50);
+  --card-foreground: oklch(0.94 0.02 75);
+  --popover: oklch(0.22 0.025 50);
+  --popover-foreground: oklch(0.94 0.02 75);
+  --primary: oklch(0.66 0.13 55);
+  --primary-foreground: oklch(0.15 0.02 50);
+  --secondary: oklch(0.27 0.02 50);
+  --secondary-foreground: oklch(0.90 0.02 75);
+  --muted: oklch(0.24 0.015 50);
+  --muted-foreground: oklch(0.67 0.04 65);
+  --accent: oklch(0.73 0.11 58);
+  --accent-foreground: oklch(0.15 0.02 50);
+  --border: oklch(0.30 0.025 50);
+  --input: oklch(0.24 0.02 50);
+  --ring: oklch(0.66 0.13 55);
+  --radius: 0.5rem;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -344,4 +366,45 @@
       rgba(139, 90, 43, 0.03) 2px,
       rgba(139, 90, 43, 0.03) 4px
     );
+}
+
+/* Professional Classic Theme Styles */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+
+.pro-btn {
+  transition: all 0.2s ease;
+}
+
+.pro-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 115, 51, 0.3);
+}
+
+.pro-btn-outline {
+  transition: all 0.2s ease;
+}
+
+.pro-btn-outline:hover {
+  transform: translateY(-2px);
+}
+
+.feature-card {
+  transition: all 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }

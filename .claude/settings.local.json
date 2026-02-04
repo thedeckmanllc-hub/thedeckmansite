@@ -11,7 +11,10 @@
       "Bash(findstr:*)",
       "Bash(dir \"c:\\main\\Projects\\thedeckmanv0\\public\" /b)",
       "Bash(dir:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(netstat:*)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []
