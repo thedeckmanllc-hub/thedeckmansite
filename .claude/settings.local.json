@@ -9,7 +9,9 @@
       "Bash(npx kill-port:*)",
       "Bash(npm run build:*)",
       "Bash(findstr:*)",
-      "Bash(dir \"c:\\main\\Projects\\thedeckmanv0\\public\" /b)"
+      "Bash(dir \"c:\\main\\Projects\\thedeckmanv0\\public\" /b)",
+      "Bash(dir:*)",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []

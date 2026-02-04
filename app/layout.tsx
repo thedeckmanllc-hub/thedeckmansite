@@ -31,6 +31,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Bebas+Neue&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className={`${_inter.variable} ${_oswald.variable} ${_playfair.variable} ${_poppins.variable} ${_montserrat.variable} font-sans antialiased`}>
         {children}
         <Analytics />

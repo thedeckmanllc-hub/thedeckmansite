@@ -2,25 +2,26 @@
 
 import { cn } from "@/lib/utils";
 
+type Variant = "brutalist-industrial" | "dark-luxury";
+
 interface ThemeSwitcherProps {
-  variant: "classic" | "industrial" | "dark-luxury";
-  onVariantChange: (variant: "classic" | "industrial" | "dark-luxury") => void;
+  variant: Variant;
+  onVariantChange: (variant: Variant) => void;
 }
 
-const themes = [
+const themes: Array<{
+  id: Variant;
+  name: string;
+  description: string;
+}> = [
   {
-    id: "classic" as const,
+    id: "brutalist-industrial",
     name: "1",
-    description: "Warm & Trusted",
+    description: "Brutalist & Industrial",
   },
   {
-    id: "industrial" as const,
+    id: "dark-luxury",
     name: "2",
-    description: "Bold & Cinematic",
-  },
-  {
-    id: "dark-luxury" as const,
-    name: "3",
     description: "Premium & Elegant",
   },
 ];
@@ -31,9 +32,7 @@ export function ThemeSwitcher({ variant, onVariantChange }: ThemeSwitcherProps) 
       <div
         className={cn(
           "flex items-center gap-1 p-1.5 rounded-full shadow-lg backdrop-blur-md border",
-          variant === "industrial"
-            ? "bg-card/95 border-border"
-            : "bg-background/95 border-border"
+          "bg-background/95 border-border"
         )}
       >
         {themes.map((theme) => (
@@ -52,12 +51,7 @@ export function ThemeSwitcher({ variant, onVariantChange }: ThemeSwitcherProps) 
           </button>
         ))}
       </div>
-      <p
-        className={cn(
-          "text-center text-xs mt-2",
-          variant === "industrial" ? "text-muted-foreground" : "text-muted-foreground"
-        )}
-      >
+      <p className="text-center text-xs mt-2 text-muted-foreground">
         {themes.find((t) => t.id === variant)?.description}
       </p>
     </div>
