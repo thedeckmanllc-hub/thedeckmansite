@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- Background circle -->
+  <circle cx="90" cy="90" r="90" fill="#8B6914"/>
+
+  <!-- Deck planks design -->
+  <g transform="translate(34, 56)">
+    <!-- Top plank -->
+    <rect x="0" y="0" width="112" height="17" rx="2" fill="#D4A574"/>
+    <line x1="0" y1="8.5" x2="112" y2="8.5" stroke="#A67C52" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Middle plank -->
+    <rect x="0" y="25" width="112" height="17" rx="2" fill="#D4A574"/>
+    <line x1="0" y1="33.5" x2="112" y2="33.5" stroke="#A67C52" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Bottom plank -->
+    <rect x="0" y="50" width="112" height="17" rx="2" fill="#D4A574"/>
+    <line x1="0" y1="58.5" x2="112" y2="58.5" stroke="#A67C52" stroke-width="1.5" opacity="0.5"/>
+  </g>
+
+  <!-- Wood grain details -->
+  <g opacity="0.3">
+    <line x1="56" y1="64" x2="62" y2="64" stroke="#6B4E28" stroke-width="1.5"/>
+    <line x1="118" y1="64" x2="124" y2="64" stroke="#6B4E28" stroke-width="1.5"/>
+    <line x1="78" y1="89" x2="84" y2="89" stroke="#6B4E28" stroke-width="1.5"/>
+    <line x1="100" y1="89" x2="106" y2="89" stroke="#6B4E28" stroke-width="1.5"/>
+    <line x1="67" y1="114" x2="73" y2="114" stroke="#6B4E28" stroke-width="1.5"/>
+    <line x1="112" y1="114" x2="118" y2="114" stroke="#6B4E28" stroke-width="1.5"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(mkdir:*)",
+      "Bash(taskkill /F /PID 5528)",
+      "Bash(npx kill-port:*)",
+      "Bash(npm run build:*)",
+      "Bash(findstr:*)",
+      "Bash(dir \"c:\\main\\Projects\\thedeckmanv0\\public\" /b)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
