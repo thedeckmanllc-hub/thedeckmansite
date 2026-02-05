@@ -54,3 +54,12 @@ export const contactInfo: ContactInfo = {
   state: 'CA',
   zip: '92028',
 }
+
+export const serviceSlugMap: Record<string, string> = {
+  'restoration': 'deck-restoration',
+  'refinishing': 'deck-refinishing',
+  'painting': 'deck-staining-painting',
+  'sealing': 'deck-sealing',
+  'repair': 'deck-repair',
+  'cleaning': 'deck-cleaning',
+}
