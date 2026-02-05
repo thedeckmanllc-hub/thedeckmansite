@@ -231,11 +231,13 @@ export function DarkLuxury() {
               >
                 <Link
                   href="#contact"
-                  className={`inline-block bg-gradient-to-r from-accent to-accent/80 text-white rounded-lg font-medium hover:from-accent/90 hover:to-accent/70 hover:shadow-lg hover:shadow-accent/50 transition-all ${
-                    isScrolled ? 'px-6 py-3 text-base' : 'px-8 py-4 text-lg'
+                  className={`group relative inline-flex items-center gap-2 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50 ${
+                    isScrolled ? 'px-6 py-3 text-sm' : 'px-8 py-4 text-base'
                   }`}
                 >
-                  Free Estimate
+                  <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="relative z-10">Free Estimate</span>
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                 </Link>
               </motion.div>
             </div>
@@ -296,9 +298,11 @@ export function DarkLuxury() {
                     <Link
                       href="#contact"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block bg-gradient-to-r from-accent to-accent/80 text-white px-6 py-3 rounded-lg font-medium text-center hover:shadow-lg hover:shadow-accent/50 transition-all"
+                      className="group relative block bg-gradient-to-r from-accent via-accent to-wood-dark text-white px-6 py-3 rounded-lg font-montserrat font-bold text-center overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/50"
                     >
-                      Free Estimate
+                      <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span className="relative z-10">Free Estimate</span>
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                     </Link>
                   </motion.div>
                 </div>
@@ -364,14 +368,21 @@ export function DarkLuxury() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center mb-12 sm:mb-16 px-4">
             <Link
               href="#contact"
-              className="group bg-accent text-white px-6 sm:px-10 py-4 sm:py-5 rounded-lg font-semibold text-base sm:text-lg hover:bg-accent/90 transition-all hover:shadow-2xl hover:shadow-accent/50 hover:-translate-y-1 inline-block"
+              className="group relative inline-flex items-center gap-3 px-6 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-base sm:text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
             >
-              <span className="flex items-center gap-2 justify-center">
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Button content */}
+              <span className="relative z-10 flex items-center gap-2 justify-center">
                 Get Your Free Quote
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
             </Link>
             <Link
               href={`tel:${contactInfo.phone}`}
@@ -431,44 +442,32 @@ export function DarkLuxury() {
             </p>
           </motion.div>
 
-          {/* Elegant Bento Grid Gallery */}
-          <div className="grid grid-cols-12 gap-6 auto-rows-[280px]">
-            {/* Project 1 - Large Featured */}
-            <Link href="/projects/luxury-hillside-deck" className="group relative col-span-12 md:col-span-7 row-span-2">
+          {/* Elegant Gallery Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Project 1 */}
+            <Link href="/projects/luxury-hillside-deck" className="group relative">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="h-full rounded-3xl overflow-hidden cursor-pointer"
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
               >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/25 to-wood-dark/40 border border-accent/20 group-hover:border-accent/50 transition-all" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
 
-              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+              <div className="absolute inset-0 flex flex-col justify-end p-6">
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
                 >
-                  <div className="inline-flex items-center gap-2 bg-accent/90 px-4 py-2 rounded-full mb-6">
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                    <span className="text-white font-montserrat font-bold text-xs uppercase tracking-wider">Featured</span>
-                  </div>
-                  <h3 className="text-white font-montserrat font-black text-3xl md:text-5xl mb-4 leading-tight">
-                    Luxury Hillside Deck Transformation
+                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Complete Restoration</span>
+                  <h3 className="text-white font-montserrat font-black text-xl md:text-2xl mb-2 leading-tight">
+                    Luxury Hillside Deck
                   </h3>
-                  <p className="text-wood-light/90 text-lg mb-6 leading-relaxed max-w-2xl">
-                    Complete restoration of a 2,000 sq ft hillside deck featuring custom railings, premium staining, and advanced waterproofing systems.
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="bg-white/15 backdrop-blur-sm px-4 py-2 rounded-lg text-white text-sm font-medium">Fallbrook, CA</span>
-                    <span className="bg-white/15 backdrop-blur-sm px-4 py-2 rounded-lg text-wood-light text-sm">14 Days</span>
-                    <span className="bg-accent/20 backdrop-blur-sm px-4 py-2 rounded-lg text-accent text-sm font-bold border border-accent/30">★ 5.0 Rating</span>
-                  </div>
+                  <p className="text-wood-light/80 text-sm">Fallbrook, CA</p>
                 </motion.div>
               </div>
 
@@ -476,114 +475,64 @@ export function DarkLuxury() {
               </motion.div>
             </Link>
 
-            {/* Project 2 - Vertical */}
-            <Link href="/projects/modern-coastal-patio" className="group relative col-span-12 md:col-span-5 row-span-2">
+            {/* Project 2 */}
+            <Link href="/projects/modern-coastal-patio" className="group relative">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="h-full rounded-2xl overflow-hidden cursor-pointer"
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
 
-                <div className="absolute inset-0 flex flex-col justify-end p-8">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-4">Staining & Refinishing</span>
-                  <h4 className="text-white font-montserrat font-bold text-2xl md:text-3xl mb-3 leading-tight">
+                <div className="absolute inset-0 flex flex-col justify-end p-6">
+                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Staining & Refinishing</span>
+                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2 leading-tight">
                     Modern Coastal Patio
                   </h4>
-                  <p className="text-wood-light/80 text-sm mb-4">Vista, CA • 8 Days</p>
-                  <div className="flex gap-2">
-                    <span className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg text-accent text-xs font-semibold">★ 5.0</span>
-                    <span className="bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg text-wood-light/90 text-xs">1,200 sq ft</span>
-                  </div>
-                </div>
-
-                <div className="absolute top-6 right-6 w-12 h-12 bg-accent/20 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
+                  <p className="text-wood-light/80 text-sm">Vista, CA</p>
                 </div>
               </motion.div>
             </Link>
 
-            {/* Project 3 - Wide */}
-            <Link href="/projects/oceanside-beach-house" className="group relative col-span-12 md:col-span-8">
+            {/* Project 3 */}
+            <Link href="/projects/oceanside-beach-house" className="group relative">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="h-full rounded-2xl overflow-hidden cursor-pointer"
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
 
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+                <div className="absolute inset-0 flex flex-col justify-end p-6">
                   <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Complete Renovation</span>
-                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2">Oceanside Beach House Deck</h4>
-                  <p className="text-wood-light/80 text-sm">Oceanside, CA • 12 Days • ★ 5.0</p>
+                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2">Oceanside Beach House</h4>
+                  <p className="text-wood-light/80 text-sm">Oceanside, CA</p>
                 </div>
               </motion.div>
             </Link>
 
-            {/* Project 4 - Square */}
-            <Link href="/projects/garden-oasis-temecula" className="group relative col-span-12 md:col-span-4">
+            {/* Project 4 */}
+            <Link href="/projects/garden-oasis-temecula" className="group relative">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="h-full rounded-2xl overflow-hidden cursor-pointer"
+                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
 
                 <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-2">Deck Repair</span>
-                  <h4 className="text-white font-montserrat font-bold text-xl mb-2">Garden Oasis</h4>
+                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Deck Repair</span>
+                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2">Garden Oasis</h4>
                   <p className="text-wood-light/80 text-sm">Temecula, CA</p>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Project 5 - Square */}
-            <Link href="/projects/resort-style-escondido" className="group relative col-span-6 md:col-span-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="h-full rounded-2xl overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
-
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-2">Pool Deck</span>
-                  <h4 className="text-white font-montserrat font-bold text-lg mb-2">Resort Style</h4>
-                  <p className="text-wood-light/80 text-xs">Escondido, CA</p>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Project 6 - Wide */}
-            <Link href="/projects/backyard-paradise-murrieta" className="group relative col-span-6 md:col-span-8">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="h-full rounded-2xl overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
-
-                <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Restoration Project</span>
-                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2">Backyard Paradise Retreat</h4>
-                  <p className="text-wood-light/80 text-sm">Murrieta, CA • 10 Days • ★ 5.0</p>
                 </div>
               </motion.div>
             </Link>
@@ -642,6 +591,32 @@ export function DarkLuxury() {
                 </motion.div>
               ))}
             </div>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="mt-16 flex justify-center"
+            >
+              <a
+                href="#contact"
+                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+              >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Button content */}
+                <span className="relative z-10">Get Your Free Estimate</span>
+                <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+
+                {/* Shine effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
+              </a>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -756,8 +731,8 @@ export function DarkLuxury() {
               className="space-y-6"
             >
               {[
-                'Fallbrook', 'Temecula', 'Oceanside', 'Vista',
-                'Bonsall', 'Rainbow', 'Escondido', 'Murrieta'
+                'San Diego', 'Chula Vista', 'Oceanside', 'Carlsbad',
+                'El Cajon', 'Vista', 'Escondido', 'Fallbrook'
               ].map((city, index) => (
                 <motion.div
                   key={index}
@@ -790,26 +765,26 @@ export function DarkLuxury() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative h-full"
             >
-              <div className="aspect-square bg-gradient-to-br from-charcoal/80 to-dark/80 rounded-2xl border-2 border-accent/30 p-8 flex items-center justify-center">
-                <div className="text-center">
-                  <svg className="w-32 h-32 mx-auto mb-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                  </svg>
-                  <div className="text-4xl font-montserrat font-black text-white mb-4">
-                    25+ Mile Radius
-                  </div>
-                  <div className="text-wood-light/80 text-lg">
-                    From Fallbrook, CA
-                  </div>
-                  <div className="mt-8 inline-flex items-center gap-2 bg-accent/10 border border-accent/30 px-4 py-2 rounded-full">
-                    <div className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-                    <span className="text-accent text-sm font-semibold">
-                      Free Estimates Available
-                    </span>
-                  </div>
+              <div className="h-full bg-gradient-to-br from-charcoal/80 to-dark/80 rounded-2xl border-2 border-accent/30 overflow-hidden relative">
+                <div className="absolute inset-0 overflow-hidden">
+                  <iframe
+                    src="https://www.google.com/maps/d/u/6/embed?mid=1aewyyfvYwJuSrtHX4-fGH-ggzJsIqrI&ehbc=2E312F"
+                    className="absolute pointer-events-none"
+                    style={{
+                      border: 0,
+                      width: '120%',
+                      height: '120%',
+                      left: '-10%',
+                      top: '-10%'
+                    }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
+                <div className="absolute inset-0 bg-transparent cursor-default" />
               </div>
             </motion.div>
           </div>
@@ -861,15 +836,19 @@ export function DarkLuxury() {
             >
               <Link
                 href="#contact"
-                className="group relative bg-white text-accent px-10 py-5 rounded-xl font-montserrat font-bold text-xl hover:bg-white/95 transition-all hover:shadow-2xl hover:shadow-white/30 hover:scale-105 inline-flex items-center gap-4 overflow-hidden"
+                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-white text-accent font-montserrat font-bold text-xl rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50"
               >
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-wood-light/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Button content */}
                 <span className="relative z-10">Get Free Estimate</span>
-                <svg className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
 
-                {/* Hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-white to-wood-light/20 translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+                {/* Shine effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-accent/20 to-transparent skew-x-12" />
               </Link>
             </motion.div>
           </div>
@@ -1222,12 +1201,19 @@ export function DarkLuxury() {
             </p>
             <Link
               href="#contact"
-              className="group bg-accent text-white px-12 py-6 rounded-2xl font-montserrat font-bold text-lg hover:bg-accent/90 transition-all hover:shadow-2xl hover:shadow-accent/50 hover:-translate-y-1 inline-flex items-center gap-4"
+              className="group relative inline-flex items-center gap-3 px-12 py-6 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
             >
-              <span>Contact Us for Free Consultation</span>
-              <svg className="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Button content */}
+              <span className="relative z-10">Contact Us for Free Consultation</span>
+              <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
             </Link>
           </motion.div>
         </div>
@@ -1507,12 +1493,19 @@ export function DarkLuxury() {
 
                 <button
                   type="submit"
-                  className="w-full bg-accent text-white px-8 py-5 rounded-xl font-montserrat font-bold text-lg hover:bg-accent/90 transition-all hover:shadow-2xl hover:shadow-accent/50 hover:-translate-y-1 flex items-center justify-center gap-3 group mt-8"
+                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-8"
                 >
-                  <span>Send Message</span>
-                  <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  {/* Animated background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Button content */}
+                  <span className="relative z-10">Send Message</span>
+                  <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
+
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                 </button>
               </div>
             </motion.form>

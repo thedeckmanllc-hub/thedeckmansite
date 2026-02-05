@@ -47,8 +47,8 @@ export const servicesData: Service[] = [
 ]
 
 export const contactInfo: ContactInfo = {
-  phone: '(760) 555-1234',
-  email: 'info@thedeckman.com',
+  phone: '(442) 378-9771',
+  email: 'thedeckmanllc@gmail.com',
   address: 'Fallbrook',
   city: 'Fallbrook',
   state: 'CA',
