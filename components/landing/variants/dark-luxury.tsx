@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { servicesData, contactInfo, serviceSlugMap } from '@/lib/types'
 import { ServiceIcon } from '@/components/service-icon'
 import { useState, useEffect } from 'react'
+import { projectsContent } from '@/lib/projects-content'
 
 export function DarkLuxury() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(2)
@@ -21,6 +22,15 @@ export function DarkLuxury() {
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errors, setErrors] = useState({
+    fullName: '',
+    phone: '',
+    email: '',
+    zipCode: '',
+    message: ''
+  })
 
   // Scroll detection for navbar
   useEffect(() => {
@@ -34,10 +44,118 @@ export function DarkLuxury() {
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
+    // Clear error when user starts typing
+    if (errors[field as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [field]: '' }))
+    }
+  }
+
+  const handleBlur = (field: keyof typeof formData) => {
+    const error = validateField(field, formData[field])
+    setErrors(prev => ({ ...prev, [field]: error }))
   }
 
   const isFieldActive = (field: keyof typeof formData) => {
     return focusedField === field || formData[field] !== ''
+  }
+
+  const validateField = (field: keyof typeof formData, value: string): string => {
+    switch (field) {
+      case 'fullName':
+        if (!value.trim()) return 'Full name is required'
+        if (value.trim().length < 2) return 'Name must be at least 2 characters'
+        return ''
+
+      case 'phone':
+        if (!value.trim()) return 'Phone number is required'
+        const phoneRegex = /^[\d\s\-\+\(\)]+$/
+        if (!phoneRegex.test(value)) return 'Please enter a valid phone number'
+        const digitsOnly = value.replace(/\D/g, '')
+        if (digitsOnly.length < 10) return 'Phone number must be at least 10 digits'
+        return ''
+
+      case 'email':
+        if (!value.trim()) return 'Email is required'
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(value)) return 'Please enter a valid email address'
+        return ''
+
+      case 'zipCode':
+        if (!value.trim()) return 'Zip code is required'
+        const zipRegex = /^\d{5}(-\d{4})?$/
+        if (!zipRegex.test(value.trim())) return 'Please enter a valid zip code (e.g., 12345 or 12345-6789)'
+        return ''
+
+      case 'message':
+        // Message is optional, but if provided, must be at least 10 characters
+        if (value.trim() && value.trim().length < 10) return 'Message must be at least 10 characters'
+        return ''
+
+      default:
+        return ''
+    }
+  }
+
+  const validateForm = (): boolean => {
+    const newErrors = {
+      fullName: validateField('fullName', formData.fullName),
+      phone: validateField('phone', formData.phone),
+      email: validateField('email', formData.email),
+      zipCode: validateField('zipCode', formData.zipCode),
+      message: validateField('message', formData.message)
+    }
+
+    setErrors(newErrors)
+    return !Object.values(newErrors).some(error => error !== '')
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    // Validate form before submitting
+    if (!validateForm()) {
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const response = await fetch('https://formspree.io/f/xykdgaqe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({
+          fullName: '',
+          phone: '',
+          email: '',
+          zipCode: '',
+          message: ''
+        })
+        setErrors({
+          fullName: '',
+          phone: '',
+          email: '',
+          zipCode: '',
+          message: ''
+        })
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      } else {
+        setSubmitStatus('error')
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      }
+    } catch (error) {
+      setSubmitStatus('error')
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const stats = [
@@ -135,11 +253,11 @@ export function DarkLuxury() {
   const faqs = [
     {
       question: 'How long does deck restoration take?',
-      answer: 'Most deck restoration projects take 2-4 days depending on the size and condition of your deck. We provide a detailed timeline during our free estimate.'
+      answer: 'The timeline varies depending on the size and condition of your deck. We provide a detailed timeline during our free estimate.'
     },
     {
-      question: 'Do you offer warranties on your work?',
-      answer: 'Yes! All our deck restoration work comes with a satisfaction guarantee and warranty on materials and workmanship. Specific warranty terms vary by service and will be detailed in your quote.'
+      question: 'What areas do you serve?',
+      answer: 'We proudly serve Fallbrook and surrounding areas in San Diego County. Contact us to confirm we service your location.'
     },
     {
       question: 'What is the best time of year to restore a deck?',
@@ -150,8 +268,8 @@ export function DarkLuxury() {
       answer: 'We recommend professional deck maintenance every 2-3 years, depending on weather exposure and deck usage. Regular maintenance extends the life of your deck significantly.'
     },
     {
-      question: 'What payment methods do you accept?',
-      answer: 'We accept cash, checks, and all major credit cards. Payment is typically due upon completion, and we never require full payment upfront.'
+      question: 'Can you match my existing deck color?',
+      answer: 'Yes, we can match your existing deck color or help you choose a new shade. We offer a wide range of stain colors and provide samples to ensure you get the perfect match.'
     }
   ]
 
@@ -352,7 +470,7 @@ export function DarkLuxury() {
             </div>
           </motion.div>
 
-          <h1 className="font-montserrat text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 sm:mb-8 leading-tight max-w-7xl mx-auto text-center px-4">
+          <h1 className="font-montserrat text-hero font-black leading-tight mx-auto text-center px-4" style={{marginBottom: 'clamp(1.5rem, 3vw, 2rem)', maxWidth: 'min(90vw, 1400px)'}}>
             <span className="block text-wood-light">Transform Your</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-accent via-wood-light to-accent">
               Outdoor Living
@@ -360,15 +478,16 @@ export function DarkLuxury() {
             <span className="block text-white">Experience</span>
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-2xl mb-12 sm:mb-16 text-wood-light/90 max-w-4xl mx-auto leading-relaxed font-light text-center px-4">
+          <p className="text-adaptive-subtitle text-wood-light/90 mx-auto leading-relaxed font-light text-center px-4" style={{marginBottom: 'clamp(3rem, 5vw, 4rem)', maxWidth: 'min(85vw, 1000px)'}}>
             Expert deck restoration, refinishing, and maintenance services in Fallbrook, CA.
             <span className="block mt-2 text-accent">Where craftsmanship meets elegance.</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center mb-12 sm:mb-16 px-4">
+          <div className="flex flex-col sm:flex-row justify-center px-4" style={{gap: 'clamp(1rem, 1.5vw, 1.5rem)', marginBottom: 'clamp(3rem, 5vw, 4rem)'}}>
             <Link
               href="#contact"
-              className="group relative inline-flex items-center gap-3 px-6 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-base sm:text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+              className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+              style={{padding: 'clamp(1rem, 1.3vw, 1.25rem) clamp(2rem, 2.5vw, 2.5rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1.125rem)'}}
             >
               {/* Animated background */}
               <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -386,10 +505,11 @@ export function DarkLuxury() {
             </Link>
             <Link
               href={`tel:${contactInfo.phone}`}
-              className="bg-transparent border-2 border-wood-light text-wood-light px-6 sm:px-10 py-4 sm:py-5 rounded-lg font-semibold text-base sm:text-lg hover:bg-wood-light hover:text-dark transition-all inline-block"
+              className="bg-transparent border-2 border-wood-light text-wood-light rounded-lg font-semibold hover:bg-wood-light hover:text-dark transition-all inline-block"
+              style={{padding: 'clamp(1rem, 1.3vw, 1.25rem) clamp(2rem, 2.5vw, 2.5rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1.125rem)'}}
             >
               <span className="flex items-center gap-2 justify-center">
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg style={{width: 'clamp(1rem, 1.2vw, 1.25rem)', height: 'clamp(1rem, 1.2vw, 1.25rem)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 {contactInfo.phone}
@@ -398,7 +518,7 @@ export function DarkLuxury() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 mx-auto px-4" style={{gap: 'clamp(1rem, 2vw, 1.5rem)', maxWidth: 'min(92vw, 1200px)'}}>
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -406,10 +526,11 @@ export function DarkLuxury() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + index * 0.1, duration: 0.6 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="p-6 sm:p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border-2 border-accent/30 hover:border-accent transition-all"
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border-2 border-accent/30 hover:border-accent transition-all"
+                style={{padding: 'clamp(1.5rem, 2.5vw, 2rem)'}}
               >
-                <div className="text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light mb-2 sm:mb-3">{stat.number}</div>
-                <div className="text-sm sm:text-base font-semibold text-wood-light uppercase tracking-wider">{stat.label}</div>
+                <div className="font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light" style={{fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', marginBottom: 'clamp(0.5rem, 1vw, 0.75rem)'}}>{stat.number}</div>
+                <div className="font-semibold text-wood-light uppercase tracking-wider" style={{fontSize: 'clamp(0.85rem, 1vw, 1rem)'}}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -420,122 +541,72 @@ export function DarkLuxury() {
       <section id="gallery" className="section-padding bg-gradient-to-b from-charcoal via-dark to-charcoal relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
-        <div className="max-w-[1600px] mx-auto px-6">
+        <div className="mx-auto px-6" style={{maxWidth: 'var(--container-ultra)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
-            <div className="inline-flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center mb-6" style={{gap: 'clamp(0.75rem, 1vw, 1rem)'}}>
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
               <span className="text-accent font-montserrat font-bold text-sm uppercase tracking-widest">
                 Our Work
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white mb-6 sm:mb-8 px-4">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white px-4" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               Recent <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Projects</span>
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-wood-light/80 max-w-4xl mx-auto leading-relaxed px-4">
+            <p className="text-adaptive-subtitle text-wood-light/80 mx-auto leading-relaxed px-4" style={{maxWidth: 'min(85vw, 1000px)'}}>
               See the transformation we bring to outdoor spaces
             </p>
           </motion.div>
 
           {/* Elegant Gallery Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Project 1 */}
-            <Link href="/projects/luxury-hillside-deck" className="group relative">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
-              >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
-
-              <div className="absolute inset-0 flex flex-col justify-end p-6">
+            {projectsContent.slice(0, 4).map((project, index) => (
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group relative block">
                 <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer border-2 border-accent/20 group-hover:border-accent/60 transition-all duration-300"
                 >
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Complete Restoration</span>
-                  <h3 className="text-white font-montserrat font-black text-xl md:text-2xl mb-2 leading-tight">
-                    Luxury Hillside Deck
-                  </h3>
-                  <p className="text-wood-light/80 text-sm">Fallbrook, CA</p>
+                  {project.images[0]?.url && (
+                    <Image
+                      src={project.images[0].url}
+                      alt={project.images[0].alt}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
+
+                  <div className="absolute inset-0 flex flex-col justify-end p-6">
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 + index * 0.1 }}
+                    >
+                      <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3 block">
+                        {project.category}
+                      </span>
+                      <h3 className="text-white font-montserrat font-black text-xl md:text-2xl mb-2 leading-tight">
+                        {project.title}
+                      </h3>
+                      <p className="text-wood-light/80 text-sm">{project.location}</p>
+                    </motion.div>
+                  </div>
+
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/10 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                 </motion.div>
-              </div>
-
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-all duration-700" />
-              </motion.div>
-            </Link>
-
-            {/* Project 2 */}
-            <Link href="/projects/modern-coastal-patio" className="group relative">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
-
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Staining & Refinishing</span>
-                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2 leading-tight">
-                    Modern Coastal Patio
-                  </h4>
-                  <p className="text-wood-light/80 text-sm">Vista, CA</p>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Project 3 */}
-            <Link href="/projects/oceanside-beach-house" className="group relative">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
-
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Complete Renovation</span>
-                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2">Oceanside Beach House</h4>
-                  <p className="text-wood-light/80 text-sm">Oceanside, CA</p>
-                </div>
-              </motion.div>
-            </Link>
-
-            {/* Project 4 */}
-            <Link href="/projects/garden-oasis-temecula" className="group relative">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-wood-dark/30 border border-accent/20 group-hover:border-accent/50 transition-all" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/40 to-transparent" />
-
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
-                  <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3">Deck Repair</span>
-                  <h4 className="text-white font-montserrat font-bold text-xl md:text-2xl mb-2">Garden Oasis</h4>
-                  <p className="text-wood-light/80 text-sm">Temecula, CA</p>
-                </div>
-              </motion.div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -625,29 +696,30 @@ export function DarkLuxury() {
       <section id="services" className="section-padding bg-gradient-to-b from-dark via-charcoal to-dark relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
-        <div className="max-w-[1600px] mx-auto px-6">
+        <div className="mx-auto px-6" style={{maxWidth: 'var(--container-ultra)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
-            <div className="inline-flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center mb-6" style={{gap: 'clamp(0.75rem, 1vw, 1rem)'}}>
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
               <span className="text-accent font-montserrat font-bold text-sm uppercase tracking-widest">
                 Our Services
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               Expert Deck Care <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Solutions</span>
             </h2>
-            <p className="text-2xl text-wood-light/80 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-adaptive-subtitle text-wood-light/80 mx-auto leading-relaxed" style={{maxWidth: 'min(85vw, 1000px)'}}>
               Comprehensive services to restore, protect, and enhance your outdoor living space
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{gap: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
             {servicesData.map((service, index) => {
               const serviceSlug = serviceSlugMap[service.icon]
               return (
@@ -662,27 +734,28 @@ export function DarkLuxury() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     whileHover={{ y: -15, scale: 1.02 }}
-                    className="group relative p-10 bg-gradient-to-br from-charcoal via-dark to-charcoal rounded-2xl border-2 border-accent/20 hover:border-accent transition-all cursor-pointer overflow-hidden h-full"
+                    className="group relative bg-gradient-to-br from-charcoal via-dark to-charcoal rounded-2xl border-2 border-accent/20 hover:border-accent transition-all cursor-pointer overflow-hidden h-full"
+                    style={{padding: 'clamp(2rem, 2.5vw, 2.5rem)'}}
                   >
                     {/* Background glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/0 group-hover:from-accent/10 group-hover:to-transparent transition-all duration-500" />
 
                     <div className="relative z-10">
-                      <div className="w-16 h-16 mb-8 transform group-hover:scale-110 transition-transform duration-300 text-accent">
+                      <div className="transform group-hover:scale-110 transition-transform duration-300 text-accent" style={{width: 'clamp(3rem, 4vw, 4rem)', height: 'clamp(3rem, 4vw, 4rem)', marginBottom: 'clamp(1.5rem, 2vw, 2rem)'}}>
                         <ServiceIcon icon={service.icon} />
                       </div>
-                      <div className="mb-4">
-                        <span className="inline-block px-3 py-1 bg-accent/20 text-accent text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+                      <div style={{marginBottom: 'clamp(1rem, 1.5vw, 1rem)'}}>
+                        <span className="inline-block px-3 py-1 bg-accent/20 text-accent text-xs font-bold uppercase tracking-wider rounded-full" style={{marginBottom: 'clamp(1rem, 1.5vw, 1rem)'}}>
                           {String(index + 1).padStart(2, '0')}
                         </span>
                       </div>
-                      <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-white mb-5 group-hover:text-accent transition-colors">
+                      <h3 className="font-montserrat text-adaptive-h3 font-bold text-white group-hover:text-accent transition-colors" style={{marginBottom: 'clamp(1rem, 1.5vw, 1.25rem)'}}>
                         {service.title}
                       </h3>
-                      <p className="text-wood-light/70 text-lg leading-relaxed group-hover:text-wood-light/90 transition-colors">
+                      <p className="text-wood-light/70 text-adaptive-body leading-relaxed group-hover:text-wood-light/90 transition-colors">
                         {service.description}
                       </p>
-                      <div className="mt-8 flex items-center text-accent opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all">
+                      <div className="flex items-center text-accent opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all" style={{marginTop: 'clamp(1.5rem, 2vw, 2rem)'}}>
                         <span className="text-sm font-bold uppercase tracking-wider">Explore Service</span>
                         <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -1253,8 +1326,20 @@ export function DarkLuxury() {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-8"
+              className="space-y-6"
             >
+              {/* Logo Section */}
+              <div className="flex justify-center">
+                <Image
+                  src="/logo.svg"
+                  alt="The Deck Man"
+                  width={336}
+                  height={168}
+                  className="!w-[336px] !h-auto opacity-90"
+                />
+              </div>
+
+              {/* Contact Information */}
               <div className="p-8 bg-gradient-to-br from-charcoal/80 to-dark/80 rounded-2xl border border-accent/30">
                 <h3 className="font-montserrat text-3xl font-bold text-white mb-6">Contact Information</h3>
                 <div className="space-y-6">
@@ -1321,192 +1406,196 @@ export function DarkLuxury() {
             </motion.div>
 
             <motion.form
+              onSubmit={handleSubmit}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="p-10 bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10"
+              className="p-[52px] bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10"
             >
               <p className="text-wood-light/70 mb-10 text-center text-lg">
                 Fill out the form below and we&apos;ll contact you within 24 hours.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-5">
                 {/* Full Name */}
-                <div className="relative h-16">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-accent z-10">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div>
+                  <label
+                    htmlFor="fullName"
+                    className="flex items-center gap-2 text-accent font-semibold text-base mb-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                  </div>
+                    Your Full Name
+                  </label>
                   <input
                     type="text"
                     id="fullName"
+                    name="fullName"
                     value={formData.fullName}
                     onChange={(e) => handleInputChange('fullName', e.target.value)}
                     onFocus={() => setFocusedField('fullName')}
-                    onBlur={() => setFocusedField(null)}
-                    className="w-full h-full pl-14 pr-5 bg-dark/70 border-2 border-accent/30 rounded-xl text-white text-base focus:border-accent focus:outline-none transition-all"
+                    onBlur={() => { setFocusedField(null); handleBlur('fullName') }}
+                    placeholder="John Smith"
+                    className={`w-full h-12 px-4 bg-dark/70 border-2 ${errors.fullName ? 'border-red-500' : focusedField === 'fullName' ? 'border-accent' : 'border-accent/30'} rounded-lg text-white text-base placeholder:text-white/40 focus:border-accent focus:outline-none transition-all`}
                   />
-                  <motion.label
-                    htmlFor="fullName"
-                    initial={false}
-                    animate={{
-                      top: isFieldActive('fullName') ? '8px' : '50%',
-                      translateY: isFieldActive('fullName') ? 0 : '-50%',
-                      fontSize: isFieldActive('fullName') ? '12px' : '16px',
-                      color: isFieldActive('fullName') ? '#D4A574' : '#A8957A'
-                    }}
-                    transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    className="absolute left-14 pointer-events-none font-medium"
-                  >
-                    Full Name
-                  </motion.label>
+                  {errors.fullName && (
+                    <p className="text-red-400 text-sm mt-1.5">{errors.fullName}</p>
+                  )}
                 </div>
 
                 {/* Phone Number */}
-                <div className="relative h-16">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-accent z-10">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="flex items-center gap-2 text-accent font-semibold text-base mb-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
-                  </div>
+                    Phone Number
+                  </label>
                   <input
                     type="tel"
                     id="phone"
+                    name="phone"
                     value={formData.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     onFocus={() => setFocusedField('phone')}
-                    onBlur={() => setFocusedField(null)}
-                    className="w-full h-full pl-14 pr-5 bg-dark/70 border-2 border-accent/30 rounded-xl text-white text-base focus:border-accent focus:outline-none transition-all"
+                    onBlur={() => { setFocusedField(null); handleBlur('phone') }}
+                    placeholder="(555) 123-4567"
+                    className={`w-full h-12 px-4 bg-dark/70 border-2 ${errors.phone ? 'border-red-500' : focusedField === 'phone' ? 'border-accent' : 'border-accent/30'} rounded-lg text-white text-base placeholder:text-white/40 focus:border-accent focus:outline-none transition-all`}
                   />
-                  <motion.label
-                    htmlFor="phone"
-                    initial={false}
-                    animate={{
-                      top: isFieldActive('phone') ? '8px' : '50%',
-                      translateY: isFieldActive('phone') ? 0 : '-50%',
-                      fontSize: isFieldActive('phone') ? '12px' : '16px',
-                      color: isFieldActive('phone') ? '#D4A574' : '#A8957A'
-                    }}
-                    transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    className="absolute left-14 pointer-events-none font-medium"
-                  >
-                    Phone Number
-                  </motion.label>
+                  {errors.phone && (
+                    <p className="text-red-400 text-sm mt-1.5">{errors.phone}</p>
+                  )}
                 </div>
 
                 {/* Email Address */}
-                <div className="relative h-16">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-accent z-10">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="flex items-center gap-2 text-accent font-semibold text-base mb-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                  </div>
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     onFocus={() => setFocusedField('email')}
-                    onBlur={() => setFocusedField(null)}
-                    className="w-full h-full pl-14 pr-5 bg-dark/70 border-2 border-accent/30 rounded-xl text-white text-base focus:border-accent focus:outline-none transition-all"
+                    onBlur={() => { setFocusedField(null); handleBlur('email') }}
+                    placeholder="john@example.com"
+                    className={`w-full h-12 px-4 bg-dark/70 border-2 ${errors.email ? 'border-red-500' : focusedField === 'email' ? 'border-accent' : 'border-accent/30'} rounded-lg text-white text-base placeholder:text-white/40 focus:border-accent focus:outline-none transition-all`}
                   />
-                  <motion.label
-                    htmlFor="email"
-                    initial={false}
-                    animate={{
-                      top: isFieldActive('email') ? '8px' : '50%',
-                      translateY: isFieldActive('email') ? 0 : '-50%',
-                      fontSize: isFieldActive('email') ? '12px' : '16px',
-                      color: isFieldActive('email') ? '#D4A574' : '#A8957A'
-                    }}
-                    transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    className="absolute left-14 pointer-events-none font-medium"
-                  >
-                    Email Address
-                  </motion.label>
+                  {errors.email && (
+                    <p className="text-red-400 text-sm mt-1.5">{errors.email}</p>
+                  )}
                 </div>
 
                 {/* Zip Code */}
-                <div className="relative h-16">
-                  <div className="absolute left-5 top-1/2 -translate-y-1/2 text-accent z-10">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div>
+                  <label
+                    htmlFor="zipCode"
+                    className="flex items-center gap-2 text-accent font-semibold text-base mb-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                  </div>
+                    Your Location
+                  </label>
                   <input
                     type="text"
                     id="zipCode"
+                    name="zipCode"
                     value={formData.zipCode}
                     onChange={(e) => handleInputChange('zipCode', e.target.value)}
                     onFocus={() => setFocusedField('zipCode')}
-                    onBlur={() => setFocusedField(null)}
-                    className="w-full h-full pl-14 pr-5 bg-dark/70 border-2 border-accent/30 rounded-xl text-white text-base focus:border-accent focus:outline-none transition-all"
+                    onBlur={() => { setFocusedField(null); handleBlur('zipCode') }}
+                    placeholder="92101"
+                    className={`w-full h-12 px-4 bg-dark/70 border-2 ${errors.zipCode ? 'border-red-500' : focusedField === 'zipCode' ? 'border-accent' : 'border-accent/30'} rounded-lg text-white text-base placeholder:text-white/40 focus:border-accent focus:outline-none transition-all`}
                   />
-                  <motion.label
-                    htmlFor="zipCode"
-                    initial={false}
-                    animate={{
-                      top: isFieldActive('zipCode') ? '8px' : '50%',
-                      translateY: isFieldActive('zipCode') ? 0 : '-50%',
-                      fontSize: isFieldActive('zipCode') ? '12px' : '16px',
-                      color: isFieldActive('zipCode') ? '#D4A574' : '#A8957A'
-                    }}
-                    transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    className="absolute left-14 pointer-events-none font-medium"
-                  >
-                    Zip Code
-                  </motion.label>
+                  {errors.zipCode && (
+                    <p className="text-red-400 text-sm mt-1.5">{errors.zipCode}</p>
+                  )}
                 </div>
 
                 {/* Message */}
-                <div className="relative">
-                  <div className="absolute left-5 top-5 text-accent z-10">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="flex items-center gap-2 text-accent font-semibold text-base mb-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
-                  </div>
+                    Your Project Details
+                  </label>
                   <textarea
                     id="message"
+                    name="message"
                     value={formData.message}
                     onChange={(e) => handleInputChange('message', e.target.value)}
                     onFocus={() => setFocusedField('message')}
-                    onBlur={() => setFocusedField(null)}
-                    rows={6}
-                    className="w-full pl-14 pr-5 pt-5 pb-5 bg-dark/70 border-2 border-accent/30 rounded-xl text-white text-base focus:border-accent focus:outline-none transition-all resize-none"
+                    onBlur={() => { setFocusedField(null); handleBlur('message') }}
+                    rows={5}
+                    placeholder="Tell us about your deck project, what services you need, or any questions you have..."
+                    className={`w-full px-4 py-3 bg-dark/70 border-2 ${errors.message ? 'border-red-500' : focusedField === 'message' ? 'border-accent' : 'border-accent/30'} rounded-lg text-white text-base placeholder:text-white/40 focus:border-accent focus:outline-none transition-all resize-none`}
                   />
-                  <motion.label
-                    htmlFor="message"
-                    initial={false}
-                    animate={{
-                      top: isFieldActive('message') ? '8px' : '20px',
-                      fontSize: isFieldActive('message') ? '12px' : '16px',
-                      color: isFieldActive('message') ? '#D4A574' : '#A8957A'
-                    }}
-                    transition={{ duration: 0.2, ease: 'easeInOut' }}
-                    className="absolute left-14 pointer-events-none font-medium"
-                  >
-                    Tell us about your project or ask any question...
-                  </motion.label>
+                  {errors.message && (
+                    <p className="text-red-400 text-sm mt-1.5">{errors.message}</p>
+                  )}
                 </div>
 
                 <button
                   type="submit"
-                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-8"
+                  disabled={isSubmitting}
+                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {/* Animated background */}
                   <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   {/* Button content */}
-                  <span className="relative z-10">Send Message</span>
-                  <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                  <span className="relative z-10">
+                    {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
+                  </span>
+                  {!isSubmitting && submitStatus !== 'success' && (
+                    <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  )}
+                  {isSubmitting && (
+                    <svg className="relative z-10 w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  )}
+                  {submitStatus === 'success' && (
+                    <svg className="relative z-10 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
 
                   {/* Shine effect */}
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                 </button>
+
+                {submitStatus === 'error' && (
+                  <p className="text-red-400 text-center mt-4">
+                    Something went wrong. Please try again.
+                  </p>
+                )}
+                {submitStatus === 'success' && (
+                  <p className="text-green-400 text-center mt-4">
+                    Thank you! We&apos;ll get back to you within 24 hours.
+                  </p>
+                )}
               </div>
             </motion.form>
           </div>
@@ -1549,34 +1638,28 @@ export function DarkLuxury() {
               </div>
 
               <p className="text-wood-light/70 mb-6 leading-relaxed text-base max-w-sm">
-                Professional deck restoration and refinishing services in Fallbrook, CA.
-                Transforming outdoor spaces with quality craftsmanship since 2009.
+                Professional deck restoration and refinishing services serving San Diego County.
+                Transforming outdoor spaces with quality craftsmanship since 2020.
               </p>
 
               {/* Social Links */}
               <div className="flex gap-3">
                 <a
-                  href="#"
+                  href="https://www.thumbtack.com/ca/san-diego/furniture-assembly/deck-man/service/512944112042737678"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group w-11 h-11 bg-gradient-to-br from-accent/20 to-accent/10 rounded-xl flex items-center justify-center hover:from-accent hover:to-accent/80 transition-all hover:scale-110 hover:shadow-lg hover:shadow-accent/30"
                 >
-                  <svg className="w-5 h-5 text-accent group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
+                  <span className="text-accent group-hover:text-white transition-colors font-bold text-xl">T</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/thedeckmansd?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group w-11 h-11 bg-gradient-to-br from-accent/20 to-accent/10 rounded-xl flex items-center justify-center hover:from-accent hover:to-accent/80 transition-all hover:scale-110 hover:shadow-lg hover:shadow-accent/30"
                 >
                   <svg className="w-5 h-5 text-accent group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="group w-11 h-11 bg-gradient-to-br from-accent/20 to-accent/10 rounded-xl flex items-center justify-center hover:from-accent hover:to-accent/80 transition-all hover:scale-110 hover:shadow-lg hover:shadow-accent/30"
-                >
-                  <svg className="w-5 h-5 text-accent group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z"/>
                   </svg>
                 </a>
               </div>
@@ -1714,15 +1797,10 @@ export function DarkLuxury() {
 
           {/* Bottom Section */}
           <div className="border-t border-accent/20 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-wood-light/50 text-sm text-center md:text-left">
-                &copy; 2024 The Deck Man. All rights reserved. | Licensed & Insured
+            <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+              <p className="text-wood-light/50 text-sm text-center">
+                &copy; 2026 The Deck Man. All rights reserved. | Licensed & Insured
               </p>
-              <div className="flex items-center gap-6 text-xs text-wood-light/50">
-                <Link href="#" className="hover:text-accent transition-colors">Privacy Policy</Link>
-                <span className="text-accent/30">|</span>
-                <Link href="#" className="hover:text-accent transition-colors">Terms of Service</Link>
-              </div>
             </div>
           </div>
         </div>

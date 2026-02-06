@@ -140,18 +140,43 @@
   --color-slate: #5A5A5A;
 }
 
+/* Responsive typography for different monitor sizes */
+:root {
+  /* Fluid font sizes using clamp() for universal scaling */
+  --text-hero: clamp(2.5rem, 5vw, 5rem);
+  --text-h1: clamp(2rem, 4vw, 4rem);
+  --text-h2: clamp(1.75rem, 3vw, 3rem);
+  --text-h3: clamp(1.5rem, 2.5vw, 2.5rem);
+  --text-subtitle: clamp(1rem, 1.5vw, 1.5rem);
+  --text-body: clamp(0.95rem, 1.1vw, 1.125rem);
+
+  /* Fluid spacing */
+  --spacing-section: clamp(4rem, 8vw, 8rem);
+  --spacing-content: clamp(2rem, 4vw, 4rem);
+  --spacing-gap: clamp(1rem, 2vw, 2rem);
+
+  /* Container max-widths adjusted for different screens */
+  --container-narrow: min(90vw, 900px);
+  --container-medium: min(92vw, 1100px);
+  --container-wide: min(95vw, 1400px);
+  --container-ultra: min(96vw, 1600px);
+}
+
 /* Additional utility classes */
 @layer components {
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: var(--container-wide);
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .section-padding {
-    @apply py-16 sm:py-20 lg:py-24;
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
   }
 
   .btn {
-    @apply inline-block px-8 py-3 font-semibold transition-all duration-300 cursor-pointer text-center;
+    padding: clamp(0.75rem, 1.2vw, 1rem) clamp(1.5rem, 2.5vw, 2rem);
+    @apply inline-block font-semibold transition-all duration-300 cursor-pointer text-center;
   }
 
   .btn-primary {
@@ -160,6 +185,31 @@
 
   .btn-secondary {
     @apply bg-transparent border-2 border-current hover:bg-current hover:text-white;
+  }
+
+  /* Responsive text sizes */
+  .text-hero {
+    font-size: var(--text-hero);
+  }
+
+  .text-adaptive-h1 {
+    font-size: var(--text-h1);
+  }
+
+  .text-adaptive-h2 {
+    font-size: var(--text-h2);
+  }
+
+  .text-adaptive-h3 {
+    font-size: var(--text-h3);
+  }
+
+  .text-adaptive-subtitle {
+    font-size: var(--text-subtitle);
+  }
+
+  .text-adaptive-body {
+    font-size: var(--text-body);
   }
 }
 

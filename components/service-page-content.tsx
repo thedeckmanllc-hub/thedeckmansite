@@ -1,9 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { ServiceIcon } from '@/components/service-icon'
 import { ServiceContent } from '@/lib/services-content'
 import { contactInfo } from '@/lib/types'
@@ -13,7 +11,6 @@ interface ServicePageContentProps {
 }
 
 export function ServicePageContent({ service }: ServicePageContentProps) {
-  const router = useRouter()
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-dark via-charcoal to-dark">
@@ -44,7 +41,7 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
       <section className="relative overflow-hidden pt-32 pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent" />
 
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div className="mx-auto px-6 relative z-10" style={{maxWidth: 'var(--container-wide)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,14 +49,16 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
             className="text-center"
           >
             {/* Icon */}
-            <div className="flex justify-center mb-6">
-              <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30 flex items-center justify-center">
-                <ServiceIcon icon={service.icon} className="w-12 h-12 text-accent" />
+            <div className="flex justify-center" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
+              <div className="rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30 flex items-center justify-center" style={{width: 'clamp(5rem, 6vw, 6rem)', height: 'clamp(5rem, 6vw, 6rem)'}}>
+                <div style={{width: 'clamp(2.5rem, 3vw, 3rem)', height: 'clamp(2.5rem, 3vw, 3rem)'}}>
+                  <ServiceIcon icon={service.icon} className="text-accent" />
+                </div>
               </div>
             </div>
 
             {/* Title */}
-            <h1 className="font-montserrat text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6">
+            <h1 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
               {service.heroTitle.split(' ').map((word, index) => {
                 const isHighlight = ['Restoration', 'Refinishing', 'Staining', 'Painting', 'Sealing', 'Repair', 'Cleaning'].includes(word)
                 return (
@@ -77,21 +76,25 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-wood-light/80 max-w-3xl mx-auto mb-8">
+            <p className="text-adaptive-subtitle text-wood-light/80 mx-auto" style={{maxWidth: 'min(85vw, 900px)', marginBottom: 'clamp(2rem, 2.5vw, 2rem)'}}>
               {service.heroSubtitle}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row justify-center" style={{gap: 'clamp(1rem, 1.5vw, 1rem)'}}>
               <Link
-                href="#contact"
-                className="px-8 py-4 bg-gradient-to-r from-accent to-accent/90 text-dark font-montserrat font-bold rounded-lg hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105"
+                href="/#contact"
+                className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50"
+                style={{padding: 'clamp(1rem, 1.3vw, 1rem) clamp(2rem, 2.5vw, 2rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1rem)'}}
               >
-                Get Free Estimate
+                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">Free Estimate</span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
               </Link>
               <a
                 href={`tel:${contactInfo.phone}`}
-                className="px-8 py-4 bg-charcoal/50 text-white font-montserrat font-bold rounded-lg border-2 border-accent/30 hover:border-accent hover:bg-charcoal transition-all duration-300"
+                className="bg-charcoal/50 text-white font-montserrat font-bold rounded-lg border-2 border-accent/30 hover:border-accent hover:bg-charcoal transition-all duration-300"
+                style={{padding: 'clamp(1rem, 1.3vw, 1rem) clamp(2rem, 2.5vw, 2rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1rem)'}}
               >
                 Call {contactInfo.phone}
               </a>
@@ -101,81 +104,63 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
       </section>
 
       {/* Long Description */}
-      <section className="py-16 bg-gradient-to-b from-charcoal to-dark">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section className="bg-gradient-to-b from-charcoal via-dark to-charcoal relative overflow-hidden" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-accent rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-wood-dark rounded-full blur-3xl" />
+        </div>
+
+        <div className="mx-auto px-6 relative z-10" style={{maxWidth: 'var(--container-medium)'}}>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="prose prose-invert prose-lg max-w-none"
+            transition={{ duration: 0.6 }}
+            className="bg-gradient-to-br from-dark via-charcoal to-dark rounded-3xl border border-accent/20 shadow-2xl"
+            style={{padding: 'clamp(2rem, 3vw, 3rem)'}}
           >
-            <p className="text-lg md:text-xl text-wood-light/90 leading-relaxed">
-              {service.longDescription}
-            </p>
+            {/* Content */}
+            <div className="relative">
+              {/* Icon or Decorative Element */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-1 w-16 bg-gradient-to-r from-accent to-wood-light rounded-full" />
+                <div className="w-3 h-3 rounded-full bg-accent animate-pulse" />
+              </div>
+
+              <p className="text-adaptive-body text-wood-light/95 leading-relaxed font-light tracking-wide">
+                {service.longDescription}
+              </p>
+
+              {/* Bottom Decorative Element */}
+              <div className="flex items-center gap-4 mt-6 justify-end">
+                <div className="w-3 h-3 rounded-full bg-wood-light/50 animate-pulse" />
+                <div className="h-1 w-16 bg-gradient-to-l from-wood-light to-accent rounded-full" />
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-20 bg-gradient-to-b from-dark to-charcoal">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-montserrat text-4xl md:text-5xl font-black text-white mb-6">
-              Why Choose Our{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">
-                {service.title}
-              </span>
-            </h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {service.benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-charcoal to-dark p-6 rounded-xl border border-accent/20 hover:border-accent/50 transition-all duration-300 group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mt-1 group-hover:bg-accent/30 transition-colors">
-                    <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <p className="text-wood-light/90 text-base leading-relaxed">
-                    {benefit}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-gradient-to-b from-charcoal to-dark">
-        <div className="max-w-[1400px] mx-auto px-6">
+      <section className="bg-gradient-to-b from-charcoal to-dark" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
+        <div className="mx-auto px-6" style={{maxWidth: 'var(--container-wide)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center"
+            style={{marginBottom: 'clamp(2.5rem, 4vw, 4rem)'}}
           >
-            <div className="inline-flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center mb-6" style={{gap: 'clamp(0.75rem, 1vw, 1rem)'}}>
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
               <span className="text-accent font-montserrat font-bold text-sm uppercase tracking-widest">
                 Our Process
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-4xl md:text-5xl font-black text-white mb-6">
+            <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
               How We{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">
                 Work
@@ -183,7 +168,7 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
             </h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4" style={{gap: 'clamp(1.5rem, 2vw, 2rem)'}}>
             {service.process.map((step, index) => (
               <motion.div
                 key={index}
@@ -193,7 +178,7 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
                 transition={{ delay: index * 0.15 }}
                 className="relative"
               >
-                <div className="bg-gradient-to-br from-charcoal via-dark to-charcoal p-8 rounded-2xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-accent/10">
+                <div className="bg-gradient-to-br from-charcoal via-dark to-charcoal rounded-2xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-accent/10" style={{padding: 'clamp(1.5rem, 2vw, 2rem)'}}>
                   {/* Step Number */}
                   <div className="absolute -top-6 left-8">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center shadow-lg shadow-accent/30">
@@ -203,11 +188,11 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
                     </div>
                   </div>
 
-                  <div className="mt-8">
-                    <h3 className="font-montserrat text-xl font-bold text-white mb-4 group-hover:text-accent transition-colors">
+                  <div style={{marginTop: 'clamp(2rem, 2.5vw, 2rem)'}}>
+                    <h3 className="font-montserrat font-bold text-white group-hover:text-accent transition-colors" style={{fontSize: 'clamp(1.15rem, 1.25vw, 1.25rem)', marginBottom: 'clamp(1rem, 1.2vw, 1rem)'}}>
                       {step.title}
                     </h3>
-                    <p className="text-wood-light/80 leading-relaxed">
+                    <p className="text-wood-light/80 leading-relaxed text-adaptive-body">
                       {step.description}
                     </p>
                   </div>
@@ -224,15 +209,16 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-gradient-to-b from-dark to-charcoal">
-        <div className="max-w-[900px] mx-auto px-6">
+      <section className="bg-gradient-to-b from-dark to-charcoal" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
+        <div className="mx-auto px-6" style={{maxWidth: 'var(--container-narrow)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center"
+            style={{marginBottom: 'clamp(2.5rem, 4vw, 4rem)'}}
           >
-            <h2 className="font-montserrat text-4xl md:text-5xl font-black text-white mb-6">
+            <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
               Frequently Asked{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">
                 Questions
@@ -240,7 +226,7 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
             </h2>
           </motion.div>
 
-          <div className="space-y-6">
+          <div style={{display: 'flex', flexDirection: 'column', gap: 'clamp(1.25rem, 1.5vw, 1.5rem)'}}>
             {service.faq.map((item, index) => (
               <motion.div
                 key={index}
@@ -248,12 +234,13 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-charcoal to-dark p-8 rounded-xl border border-accent/20"
+                className="bg-gradient-to-br from-charcoal to-dark rounded-xl border border-accent/20"
+                style={{padding: 'clamp(1.5rem, 2vw, 2rem)'}}
               >
-                <h3 className="font-montserrat text-xl font-bold text-white mb-4">
+                <h3 className="font-montserrat font-bold text-white" style={{fontSize: 'clamp(1.15rem, 1.25vw, 1.25rem)', marginBottom: 'clamp(1rem, 1.2vw, 1rem)'}}>
                   {item.question}
                 </h3>
-                <p className="text-wood-light/90 leading-relaxed">
+                <p className="text-wood-light/90 leading-relaxed text-adaptive-body">
                   {item.answer}
                 </p>
               </motion.div>
@@ -263,26 +250,29 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-charcoal to-dark">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section className="bg-gradient-to-b from-charcoal to-dark" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
+        <div className="mx-auto px-6" style={{maxWidth: 'min(92vw, 1200px)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-accent/10 to-accent/5 p-12 rounded-3xl border border-accent/30 text-center"
+            className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl border border-accent/30 text-center"
+            style={{padding: 'clamp(2.5rem, 3vw, 3rem)'}}
           >
-            <h2 className="font-montserrat text-3xl md:text-5xl font-black text-white mb-6">
+            <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
               Ready to Transform Your Deck?
             </h2>
-            <p className="text-xl text-wood-light/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-adaptive-subtitle text-wood-light/90 mx-auto" style={{marginBottom: 'clamp(2rem, 2.5vw, 2rem)', maxWidth: 'min(85vw, 800px)'}}>
               Get a free, no-obligation estimate for your {service.title.toLowerCase()} project.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/#contact"
-                className="px-8 py-4 bg-gradient-to-r from-accent to-accent/90 text-dark font-montserrat font-bold rounded-lg hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105"
+                className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50 px-8 py-4 text-base"
               >
-                Request Free Estimate
+                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">Free Estimate</span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
               </Link>
               <a
                 href={`tel:${contactInfo.phone}`}

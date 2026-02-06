@@ -24,51 +24,51 @@ export const servicesContent: ServiceContent[] = [
     shortDescription: 'Complete deck revival including structural assessment, deep cleaning, and repair of damaged boards.',
     heroTitle: 'Professional Deck Restoration Services',
     heroSubtitle: 'Bring your weathered deck back to life with expert restoration',
-    longDescription: 'Our comprehensive deck restoration service transforms old, weathered decks into beautiful outdoor living spaces. We begin with a thorough structural assessment to identify any safety issues or damaged components. Our team then deep cleans the entire surface, removes old finishes, repairs or replaces damaged boards, and applies premium protective coatings. Whether your deck has suffered from years of weather exposure, neglect, or simple wear and tear, we have the expertise to restore it to its former glory.',
+    longDescription: 'A weathered deck doesn\'t just affect your home\'s appearance it impacts the value and enjoyment of your entire outdoor space. Deck restoration is a comprehensive process that addresses both aesthetic and structural concerns, breathing new life into worn surfaces while ensuring long-term durability. Through careful assessment, expert craftsmanship, and premium materials, professional restoration can transform a tired, faded deck into a stunning feature that enhances your property and provides a safe, inviting space for relaxation and entertainment. From surface-level improvements to deeper structural work, the restoration process is tailored to each deck\'s unique condition and the specific needs of California\'s diverse climate.',
     benefits: [
-      'Complete structural assessment and safety inspection',
-      'Professional deep cleaning and surface preparation',
-      'Damaged board repair or replacement',
-      'Premium stain and sealant application',
-      'Extended deck lifespan by 10-15 years',
-      'Increased property value',
-      'Expert craftsmanship with attention to detail',
-      'Satisfaction guarantee on all work'
+      'Structural assessment and safety evaluation',
+      'Professional cleaning and surface preparation',
+      'Damaged component repair or replacement',
+      'Quality stain and sealant application',
+      'Deck longevity enhancement potential',
+      'Property appearance improvement',
+      'Skilled craftsmanship and attention to detail',
+      'Professional service standards'
     ],
     process: [
       {
         step: 1,
-        title: 'Initial Inspection',
-        description: 'We thoroughly inspect your deck to assess its condition, identify problem areas, and determine the best restoration approach.'
+        title: 'Initial Assessment',
+        description: 'Comprehensive inspection to evaluate deck condition, identify concerns, and determine appropriate restoration methods based on specific needs.'
       },
       {
         step: 2,
-        title: 'Deep Cleaning',
-        description: 'Professional power washing removes dirt, mold, mildew, and old finishes, preparing the surface for restoration.'
+        title: 'Surface Cleaning',
+        description: 'Professional cleaning process removes contaminants, organic growth, and deteriorated finishes, preparing surfaces for restoration work.'
       },
       {
         step: 3,
         title: 'Repairs & Replacement',
-        description: 'We repair or replace damaged boards, railings, and structural components to ensure safety and durability.'
+        description: 'Addressing damaged boards, railings, and structural elements through repair or replacement as needed for functionality and safety.'
       },
       {
         step: 4,
-        title: 'Finishing',
-        description: 'Application of premium stains, sealants, and protective coatings to enhance beauty and weather resistance.'
+        title: 'Finishing Application',
+        description: 'Applying selected stains, sealants, and protective products to enhance appearance and provide environmental protection.'
       }
     ],
     faq: [
       {
         question: 'How long does deck restoration take?',
-        answer: 'Most deck restoration projects take 3-5 days depending on the size and condition of your deck. We provide a detailed timeline during our free estimate.'
+        answer: 'Project duration varies based on deck size, current condition, extent of work needed, and weather conditions. Timeline specifics can be discussed after assessing your particular deck and understanding the scope of work required.'
       },
       {
         question: 'Is restoration cheaper than replacing a deck?',
-        answer: 'Yes, in most cases deck restoration costs 30-50% less than full replacement while extending your deck\'s life by 10-15 years.'
+        answer: 'Cost comparisons between restoration and replacement depend on the deck\'s condition, extent of damage, structural integrity, and specific circumstances. Restoration can be a cost-effective option when the underlying structure is sound. We can evaluate your deck and discuss both approaches.'
       },
       {
         question: 'What is included in deck restoration?',
-        answer: 'Our restoration includes structural assessment, deep cleaning, repairs, board replacement (if needed), sanding, and application of premium stains and sealants.'
+        answer: 'Deck restoration typically encompasses structural evaluation, surface cleaning, necessary repairs, component replacement as needed, surface preparation, and application of protective finishes. The specific scope varies based on individual deck conditions and requirements.'
       }
     ],
     seo: {
@@ -84,16 +84,16 @@ export const servicesContent: ServiceContent[] = [
     shortDescription: 'Professional sanding, staining, and sealing to protect and beautify your deck for years to come.',
     heroTitle: 'Expert Deck Refinishing Services',
     heroSubtitle: 'Restore beauty and protection to your deck with professional refinishing',
-    longDescription: 'Deck refinishing is essential for maintaining the beauty and integrity of your outdoor space. Our refinishing process begins with thorough surface preparation, including professional sanding to remove old finishes and smooth out imperfections. We then apply premium quality stains that enhance the natural beauty of your wood while providing excellent UV and weather protection. Finally, we seal your deck with advanced waterproofing products that lock in the stain and create a durable, long-lasting finish. Regular refinishing every 2-3 years is the key to keeping your deck looking beautiful and protecting your investment.',
+    longDescription: 'Deck refinishing represents one of the most effective approaches to maintaining and enhancing outdoor wood surfaces. The refinishing process involves careful surface preparation, removal of existing finishes, and application of protective coatings designed to withstand California\'s varied climate conditions. This multi-step procedure addresses both aesthetic concerns and functional protection needs, helping to preserve the natural characteristics of wood while providing defense against environmental factors. Professional refinishing work combines technical expertise with quality materials, creating results that reflect attention to detail and understanding of wood care principles. The approach taken can vary based on the deck\'s current condition, wood type, and exposure to elements.',
     benefits: [
-      'Professional sanding for smooth, even surface',
-      'Premium quality stains in various colors',
-      'Advanced UV and weather protection',
-      'Enhanced natural wood grain and beauty',
-      'Long-lasting waterproof sealant',
-      'Prevents wood rot and decay',
-      'Increases deck lifespan significantly',
-      'Free color consultation and samples'
+      'Professional surface preparation and sanding techniques',
+      'Selection of premium quality stains and finishes',
+      'UV and weather protection application',
+      'Enhancement of natural wood grain characteristics',
+      'Waterproof sealant options',
+      'Wood preservation approaches',
+      'Extended surface longevity potential',
+      'Color consultation available'
     ],
     process: [
       {
@@ -120,15 +120,15 @@ export const servicesContent: ServiceContent[] = [
     faq: [
       {
         question: 'How often should I refinish my deck?',
-        answer: 'We recommend refinishing your deck every 2-3 years in California\'s climate to maintain optimal protection and appearance.'
+        answer: 'Refinishing frequency depends on various factors including sun exposure, weather conditions, foot traffic, and wood type. Many homeowners in California\'s climate consider refinishing every few years to maintain appearance and protection.'
       },
       {
         question: 'Can I choose the stain color?',
-        answer: 'Absolutely! We offer a wide range of premium stain colors and provide free samples to help you choose the perfect shade for your home.'
+        answer: 'Yes, there are numerous stain color options available. We can provide samples and discuss color choices that complement your home and meet your aesthetic preferences.'
       },
       {
         question: 'How long before I can use my deck after refinishing?',
-        answer: 'Most stains and sealants require 24-48 hours of dry time. We\'ll provide specific timing based on the products used and weather conditions.'
+        answer: 'Drying time varies based on the products used, weather conditions, temperature, and humidity. Specific guidance on timing and deck usage will be provided based on the particular circumstances of your project.'
       }
     ],
     seo: {
@@ -144,16 +144,16 @@ export const servicesContent: ServiceContent[] = [
     shortDescription: 'Premium quality stains and paints that enhance natural wood beauty while providing weather protection.',
     heroTitle: 'Professional Deck Staining & Painting',
     heroSubtitle: 'Transform your deck with beautiful, long-lasting color',
-    longDescription: 'Our deck staining and painting services combine aesthetic enhancement with superior protection. We use only premium quality products specifically formulated for outdoor wood surfaces. Whether you prefer the natural look of transparent or semi-transparent stains that showcase wood grain, or the bold statement of solid color stains and paints, we have the expertise to deliver flawless results. Our meticulous surface preparation ensures excellent adhesion and durability, while our application techniques provide even coverage and a professional finish that will enhance your home\'s curb appeal and protect your deck for years to come.',
+    longDescription: 'Deck staining and painting services focus on enhancing outdoor wood surfaces through color application and protective coatings. These treatments serve dual purposes: improving visual appeal while creating barriers against environmental exposure. The choice between staining and painting depends on various factors including wood type, desired aesthetic, and maintenance preferences. Staining options range from transparent finishes that highlight wood grain to solid colors that provide fuller coverage. Paint offers different characteristics and color possibilities. Professional application involves comprehensive surface preparation, product selection based on specific conditions, and careful technique to achieve even coverage. The right approach considers California\'s climate patterns, sun exposure levels, and individual property characteristics.',
     benefits: [
-      'Wide selection of premium stain and paint colors',
+      'Diverse selection of stain and paint colors',
       'Transparent, semi-transparent, and solid color options',
-      'Superior UV and weather protection',
-      'Enhanced curb appeal and property value',
-      'Professional surface preparation',
-      'Even, streak-free application',
-      'Eco-friendly product options available',
-      'Free color consultation and samples'
+      'UV and weather protection properties',
+      'Aesthetic enhancement potential',
+      'Thorough surface preparation methods',
+      'Professional application techniques',
+      'Low-VOC product options available',
+      'Color consultation services'
     ],
     process: [
       {
@@ -180,15 +180,15 @@ export const servicesContent: ServiceContent[] = [
     faq: [
       {
         question: 'Should I stain or paint my deck?',
-        answer: 'Staining is typically preferred as it allows wood to breathe and showcases natural grain. Paint provides more color options but requires more maintenance. We\'ll help you choose the best option for your needs.'
+        answer: 'The choice between staining and painting depends on several factors including your aesthetic preferences, wood type, and maintenance approach. Stain allows wood grain to show through and may require different maintenance than paint. Paint offers broader color choices and different coverage characteristics. We can discuss which option aligns better with your specific situation and goals.'
       },
       {
         question: 'How long do deck stains and paints last?',
-        answer: 'Quality stains typically last 2-4 years, while paints can last 3-5 years with proper maintenance. Factors include sun exposure, weather, and foot traffic.'
+        answer: 'The longevity of deck finishes varies based on multiple factors including product quality, sun exposure, weather patterns, foot traffic, and maintenance. Different products have different durability characteristics. We can discuss what to expect based on your deck\'s specific conditions.'
       },
       {
         question: 'Do you offer eco-friendly stain options?',
-        answer: 'Yes! We offer low-VOC and eco-friendly stain and paint options that are better for the environment while still providing excellent protection and beauty.'
+        answer: 'Yes, low-VOC and environmentally conscious stain and paint options are available. These products offer environmental benefits while providing protection and aesthetic qualities. We can discuss eco-friendly alternatives that suit your project needs.'
       }
     ],
     seo: {
@@ -204,16 +204,16 @@ export const servicesContent: ServiceContent[] = [
     shortDescription: 'Advanced waterproofing and UV protection to extend your deck\'s lifespan and maintain its appearance.',
     heroTitle: 'Professional Deck Sealing Services',
     heroSubtitle: 'Protect your investment with advanced waterproofing',
-    longDescription: 'Deck sealing is your deck\'s first line of defense against California\'s harsh sun, occasional rain, and daily wear and tear. Our professional sealing service uses advanced waterproofing products that penetrate deep into the wood fibers to create a protective barrier against moisture, UV rays, mold, and mildew. Unlike basic sealants, our premium products are specifically formulated for the California climate, providing superior protection without compromising the natural beauty of your wood. Regular sealing is the most cost-effective way to extend your deck\'s lifespan and avoid costly repairs down the line.',
+    longDescription: 'Deck sealing provides essential protection for outdoor wood surfaces exposed to California\'s environmental conditions. Professional sealing involves applying specialized products designed to penetrate wood fibers and create protective barriers against moisture, ultraviolet radiation, and organic growth. The sealing process addresses multiple concerns including water damage prevention, UV exposure effects, and surface deterioration. Quality sealants are formulated to work with specific climate conditions while preserving wood\'s natural appearance and texture. The application requires proper surface preparation, appropriate product selection, and careful technique. Sealing represents a proactive maintenance approach that can help preserve deck surfaces and reduce the need for more extensive interventions over time.',
     benefits: [
-      'Advanced waterproofing technology',
-      'Superior UV protection prevents fading',
-      'Prevents mold and mildew growth',
-      'Protects against wood rot and decay',
-      'Maintains natural wood appearance',
-      'Non-slip finish options available',
-      'Quick drying time for minimal disruption',
-      'Extends deck lifespan by years'
+      'Professional waterproofing applications',
+      'UV protection coating options',
+      'Moisture barrier properties',
+      'Protection against organic growth',
+      'Natural wood appearance preservation',
+      'Various finish options including non-slip',
+      'Efficient application methods',
+      'Preventive maintenance approach'
     ],
     process: [
       {
@@ -240,15 +240,15 @@ export const servicesContent: ServiceContent[] = [
     faq: [
       {
         question: 'How often should I seal my deck?',
-        answer: 'In California\'s climate, we recommend sealing your deck every 1-2 years for optimal protection, depending on sun exposure and usage.'
+        answer: 'Sealing frequency depends on factors including climate conditions, sun exposure, deck usage, and the type of sealant used. In California, many deck owners consider sealing on a regular schedule based on their deck\'s specific exposure and condition. We can assess your deck and discuss an appropriate maintenance approach.'
       },
       {
         question: 'Can I seal my deck myself?',
-        answer: 'While DIY is possible, professional sealing ensures proper surface preparation, product selection, and application techniques that significantly improve longevity and effectiveness.'
+        answer: 'DIY sealing is an option some homeowners choose. Professional sealing involves specific preparation methods, product knowledge, and application techniques developed through experience. The choice between DIY and professional service depends on your comfort level, available time, and desired results.'
       },
       {
         question: 'How long does deck sealing take?',
-        answer: 'Most deck sealing projects can be completed in 1-2 days, including preparation and application. Curing typically takes 24-48 hours before normal use.'
+        answer: 'Project duration varies based on deck size, condition, preparation needs, and weather. The process includes surface preparation, product application, and curing time. Specific timing and when the deck can be used will depend on the products used and environmental conditions during application.'
       }
     ],
     seo: {
@@ -264,16 +264,16 @@ export const servicesContent: ServiceContent[] = [
     shortDescription: 'Expert repair of railings, boards, stairs, and structural components to ensure safety and durability.',
     heroTitle: 'Expert Deck Repair Services',
     heroSubtitle: 'Safety first - professional repairs you can trust',
-    longDescription: 'A damaged deck isn\'t just unsightly - it\'s a safety hazard. Our expert deck repair services address everything from minor cosmetic issues to serious structural problems. We specialize in repairing loose or damaged railings, replacing rotted or cracked boards, fixing wobbly stairs, and reinforcing structural components. Our team has the experience to identify hidden issues that might not be immediately visible, ensuring your deck is not only beautiful but also safe for your family and guests. We use quality materials that match your existing deck and provide repairs that stand the test of time.',
+    longDescription: 'Deck repair addresses both functional and safety concerns that develop in outdoor structures over time. Professional repair work involves careful assessment of visible and potential underlying issues, including damaged railings, compromised boards, stair concerns, and structural elements. The repair approach depends on the extent and nature of damage, wood condition, and overall deck integrity. Experienced repair work includes proper material selection to match existing components, appropriate fastening and reinforcement techniques, and attention to both immediate concerns and contributing factors. California\'s climate creates specific challenges for outdoor wood structures, making knowledgeable assessment important. Professional repair services aim to restore deck function and safety while considering the structure\'s overall condition and future maintenance needs.',
     benefits: [
-      'Comprehensive safety inspections',
-      'Expert diagnosis of structural issues',
-      'Quality materials matching existing deck',
-      'Railing and stair repairs',
-      'Rotted board replacement',
-      'Structural reinforcement',
-      'Fast turnaround times',
-      'Warranty on all repair work'
+      'Thorough safety assessments',
+      'Structural issue evaluation',
+      'Material matching capabilities',
+      'Railing and stair repair expertise',
+      'Board replacement services',
+      'Structural reinforcement options',
+      'Efficient project completion',
+      'Quality workmanship standards'
     ],
     process: [
       {
@@ -300,15 +300,15 @@ export const servicesContent: ServiceContent[] = [
     faq: [
       {
         question: 'How do I know if my deck needs repairs?',
-        answer: 'Warning signs include loose railings, soft or spongy boards, visible rot, protruding nails, wobbly stairs, or any areas that feel unsafe. We offer free inspections to assess your deck\'s condition.'
+        answer: 'Common indicators include loose railings, soft or spongy boards, visible deterioration, protruding fasteners, stair movement, or areas that raise safety concerns. A professional inspection can identify both obvious issues and less visible problems. We can assess your deck\'s condition and discuss any concerns found.'
       },
       {
         question: 'Can you match my existing deck boards?',
-        answer: 'Yes! We work hard to match your existing materials, wood type, and finish. If exact matches aren\'t available, we\'ll discuss the best alternatives with you.'
+        answer: 'Material matching involves considering wood type, dimensions, and finish characteristics. We work to find appropriate matches for existing components. When exact matches aren\'t available, we discuss alternative options that work with the existing structure while addressing your needs.'
       },
       {
         question: 'Is it better to repair or replace my deck?',
-        answer: 'It depends on the extent of damage. If less than 30% of your deck needs repair, repairs are usually more cost-effective. We\'ll give you an honest assessment and recommendation.'
+        answer: 'The repair versus replacement decision depends on factors including damage extent, overall deck condition, structural integrity, and cost considerations. Each situation is different. We can assess your specific deck and discuss which approach makes sense for your circumstances.'
       }
     ],
     seo: {
@@ -324,16 +324,16 @@ export const servicesContent: ServiceContent[] = [
     shortDescription: 'Power washing and deep cleaning to remove dirt, mold, mildew, and old finishes safely.',
     heroTitle: 'Professional Deck Cleaning Services',
     heroSubtitle: 'Deep cleaning that reveals your deck\'s natural beauty',
-    longDescription: 'Regular professional cleaning is essential for maintaining your deck\'s appearance and preventing long-term damage. Our deck cleaning service uses specialized equipment and techniques to safely remove dirt, grime, mold, mildew, algae, and old finishes without damaging the wood. We understand that different wood types and conditions require different approaches, so we customize our cleaning method for your specific deck. Whether you\'re preparing for refinishing, maintaining your deck\'s current finish, or just want to restore its appearance, our professional cleaning service will leave your deck looking fresh and clean.',
+    longDescription: 'Professional deck cleaning addresses the accumulation of environmental contaminants and organic growth that affect outdoor wood surfaces. The cleaning process utilizes specialized equipment and appropriate techniques to remove dirt, grime, mold, mildew, algae, and deteriorated finishes while preserving wood integrity. Different wood species and surface conditions require tailored approaches to achieve effective cleaning without causing damage. Cleaning serves multiple purposes: aesthetic improvement, surface preparation for finishing work, and removal of elements that can contribute to deterioration. The service involves assessment of the deck\'s current state, selection of suitable cleaning methods and solutions, and careful execution that considers wood characteristics and environmental factors specific to California conditions.',
     benefits: [
-      'Professional-grade power washing equipment',
-      'Safe removal of mold, mildew, and algae',
-      'Environmentally friendly cleaning solutions',
-      'No damage to wood fibers',
-      'Preparation for staining or sealing',
-      'Extends life of existing finishes',
-      'Brightens and restores natural color',
-      'Prevents long-term deterioration'
+      'Professional cleaning equipment and methods',
+      'Organic growth and contaminant removal',
+      'Appropriate cleaning solution selection',
+      'Wood fiber preservation techniques',
+      'Surface preparation for refinishing',
+      'Maintenance of existing finishes',
+      'Natural wood color restoration',
+      'Preventive maintenance approach'
     ],
     process: [
       {
@@ -360,15 +360,15 @@ export const servicesContent: ServiceContent[] = [
     faq: [
       {
         question: 'How often should I have my deck professionally cleaned?',
-        answer: 'We recommend professional cleaning at least once a year, or twice a year for decks in shaded areas prone to mold and mildew growth.'
+        answer: 'Cleaning frequency varies based on factors including environmental conditions, shade exposure, local climate, organic growth patterns, and deck usage. Decks in shaded areas or humid conditions may benefit from more frequent cleaning. We can assess your deck\'s exposure and discuss an appropriate cleaning schedule for your situation.'
       },
       {
         question: 'Will power washing damage my deck?',
-        answer: 'When done correctly by professionals, no. We use appropriate pressure levels and techniques for your specific wood type. DIY power washing often causes damage due to excessive pressure.'
+        answer: 'Power washing requires proper pressure settings, appropriate techniques, and understanding of wood characteristics. Professional cleaning uses methods suited to specific wood types and conditions. Improper pressure or technique can potentially cause damage. We adjust our approach based on your deck\'s specific needs and condition.'
       },
       {
         question: 'Should I clean before staining or sealing?',
-        answer: 'Absolutely! Professional cleaning is essential before any refinishing work. It ensures proper adhesion and maximizes the lifespan of new stains and sealants.'
+        answer: 'Proper surface preparation, including thorough cleaning, is important before applying finishes. Clean surfaces allow better adhesion and product performance. Professional cleaning before refinishing work addresses contaminants and prepares the surface appropriately for new coatings.'
       }
     ],
     seo: {

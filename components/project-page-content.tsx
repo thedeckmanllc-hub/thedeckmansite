@@ -51,19 +51,20 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
       <section className="relative overflow-hidden pt-32 pb-20">
         <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent" />
 
-        <div className="max-w-[1600px] mx-auto px-6 relative z-10">
+        <div className="mx-auto px-6 relative z-10" style={{maxWidth: 'var(--container-ultra)'}}>
           {/* Project Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center"
+            style={{marginBottom: 'clamp(2rem, 3vw, 3rem)'}}
           >
-            <span className="inline-block text-accent font-montserrat font-bold text-sm uppercase tracking-widest mb-4">
+            <span className="inline-block text-accent font-montserrat font-bold text-sm uppercase tracking-widest" style={{marginBottom: 'clamp(1rem, 1.5vw, 1rem)'}}>
               {project.category}
             </span>
 
-            <h1 className="font-montserrat text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6">
+            <h1 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
               {project.heroTitle}
             </h1>
 
@@ -83,7 +84,8 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative max-w-[1200px] mx-auto"
+            className="relative mx-auto"
+            style={{maxWidth: 'min(92vw, 1200px)'}}
           >
             <div className="relative aspect-[16/10] rounded-3xl overflow-hidden border-2 border-accent/20">
               {/* Main Image */}
@@ -96,14 +98,6 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
                   priority
                 />
 
-                {/* Image Caption */}
-                {project.images[currentImageIndex].caption && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark/90 to-transparent p-6">
-                    <p className="text-white font-medium text-center">
-                      {project.images[currentImageIndex].caption}
-                    </p>
-                  </div>
-                )}
               </div>
 
               {/* Navigation Arrows */}
@@ -166,76 +160,102 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
         </div>
       </section>
 
-      {/* Project Details Section */}
-      <section className="py-20 bg-gradient-to-b from-charcoal to-dark">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {project.details.map((detail, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-charcoal to-dark p-6 rounded-xl border border-accent/20"
-              >
-                <div className="text-accent font-montserrat text-sm font-bold uppercase tracking-wider mb-2">
-                  {detail.label}
+      {/* Challenge & Solution Section */}
+      <section className="py-20 bg-gradient-to-b from-dark via-charcoal to-dark relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-1/2 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2" />
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-wood-light/5 rounded-full blur-3xl -translate-y-1/2" />
+
+        <div className="mx-auto px-6 relative z-10" style={{maxWidth: 'var(--container-wide)'}}>
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+            style={{marginBottom: 'clamp(2.5rem, 4vw, 4rem)'}}
+          >
+            <div className="inline-flex items-center gap-3 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-accent" />
+              <span className="text-accent font-montserrat font-bold text-sm uppercase tracking-widest">
+                Project Story
+              </span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-accent" />
+            </div>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-0 relative">
+            {/* Vertical Divider Line */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-accent/30 to-transparent" />
+
+            {/* Challenge */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative p-8 lg:p-12 lg:pr-16"
+            >
+              <div className="relative">
+                {/* Icon */}
+                <div className="bg-gradient-to-br from-red-500/20 to-red-600/10 rounded-xl flex items-center justify-center border border-red-500/20" style={{width: 'clamp(3rem, 3.5vw, 3.5rem)', height: 'clamp(3rem, 3.5vw, 3.5rem)', marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
+                  <svg style={{width: 'clamp(1.5rem, 1.75vw, 1.75rem)', height: 'clamp(1.5rem, 1.75vw, 1.75rem)'}} className="text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
                 </div>
-                <div className="text-white font-montserrat text-lg font-semibold">
-                  {detail.value}
+
+                <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
+                  The <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">Challenge</span>
+                </h2>
+
+                <div className="prose prose-invert max-w-none">
+                  <p className="text-adaptive-body text-wood-light/90 leading-relaxed">
+                    {project.challenge}
+                  </p>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
+
+            {/* Solution */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative p-8 lg:p-12 lg:pl-16 bg-gradient-to-br from-accent/5 to-transparent md:rounded-r-3xl"
+            >
+              <div className="relative">
+                {/* Icon */}
+                <div className="bg-gradient-to-br from-accent/30 to-accent/10 rounded-xl flex items-center justify-center border border-accent/30" style={{width: 'clamp(3rem, 3.5vw, 3.5rem)', height: 'clamp(3rem, 3.5vw, 3.5rem)', marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
+                  <svg style={{width: 'clamp(1.5rem, 1.75vw, 1.75rem)', height: 'clamp(1.5rem, 1.75vw, 1.75rem)'}} className="text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+
+                <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
+                  Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Solution</span>
+                </h2>
+
+                <div className="prose prose-invert max-w-none">
+                  <p className="text-adaptive-body text-wood-light/90 leading-relaxed">
+                    {project.solution}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Challenge Section */}
-      <section className="py-20 bg-gradient-to-b from-dark to-charcoal">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-montserrat text-3xl md:text-4xl font-black text-white mb-6">
-              The <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Challenge</span>
-            </h2>
-            <p className="text-lg text-wood-light/90 leading-relaxed">
-              {project.challenge}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Solution Section */}
-      <section className="py-20 bg-gradient-to-b from-charcoal to-dark">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-montserrat text-3xl md:text-4xl font-black text-white mb-6">
-              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Solution</span>
-            </h2>
-            <p className="text-lg text-wood-light/90 leading-relaxed">
-              {project.solution}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Results Section */}
-      <section className="py-20 bg-gradient-to-b from-dark to-charcoal">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section className="bg-gradient-to-b from-dark to-charcoal" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
+        <div className="mx-auto px-6" style={{maxWidth: 'min(92vw, 1200px)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-montserrat text-3xl md:text-4xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(2rem, 2.5vw, 2rem)'}}>
               Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Results</span>
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -263,61 +283,43 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
         </div>
       </section>
 
-      {/* Testimonial Section */}
-      {project.testimonial && (
-        <section className="py-20 bg-gradient-to-b from-charcoal to-dark">
-          <div className="max-w-[900px] mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-br from-accent/10 to-accent/5 p-12 rounded-3xl border border-accent/30 text-center"
-            >
-              <div className="flex justify-center mb-6">
-                {[...Array(project.testimonial.rating)].map((_, i) => (
-                  <svg key={i} className="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-xl md:text-2xl text-white/90 mb-6 leading-relaxed italic">
-                "{project.testimonial.text}"
-              </p>
-              <p className="text-accent font-montserrat font-bold text-lg">
-                — {project.testimonial.name}
-              </p>
-            </motion.div>
-          </div>
-        </section>
-      )}
-
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-dark to-charcoal">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <section className="bg-gradient-to-b from-dark to-charcoal" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
+        <div className="mx-auto px-6" style={{maxWidth: 'min(92vw, 1200px)'}}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-accent/10 to-accent/5 p-12 rounded-3xl border border-accent/30 text-center"
+            className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl border border-accent/30 text-center"
+            style={{padding: 'clamp(2.5rem, 3vw, 3rem)'}}
           >
-            <h2 className="font-montserrat text-3xl md:text-5xl font-black text-white mb-6">
+            <h2 className="font-montserrat text-adaptive-h2 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2vw, 1.5rem)'}}>
               Ready for Your Deck Transformation?
             </h2>
-            <p className="text-xl text-wood-light/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-adaptive-subtitle text-wood-light/90 mx-auto" style={{marginBottom: 'clamp(2rem, 2.5vw, 2rem)', maxWidth: 'min(85vw, 800px)'}}>
               Get a free consultation and estimate for your deck project. Let's create your dream outdoor space.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/#contact"
-                className="px-8 py-4 bg-gradient-to-r from-accent to-accent/90 text-dark font-montserrat font-bold rounded-lg hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 hover:scale-105"
+                className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
               >
-                Request Free Estimate
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                {/* Button content */}
+                <span className="relative z-10 flex items-center gap-2">
+                  Request free estimate
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
               </Link>
               <a
                 href={`tel:${contactInfo.phone}`}
-                className="px-8 py-4 bg-charcoal text-white font-montserrat font-bold rounded-lg border-2 border-accent hover:border-accent hover:bg-charcoal/80 transition-all duration-300"
+                className="px-10 py-5 bg-charcoal text-white font-montserrat font-bold text-lg rounded-xl border-2 border-accent hover:border-accent hover:bg-charcoal/80 transition-all duration-300"
               >
-                Call Now: {contactInfo.phone}
+                Call now: {contactInfo.phone}
               </a>
             </div>
           </motion.div>

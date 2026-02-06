@@ -35,6 +35,224 @@ export interface ProjectContent {
 
 export const projectsContent: ProjectContent[] = [
   {
+    slug: 'outdoor-deck-restoration',
+    title: 'Outdoor Deck Restoration',
+    category: 'Complete Restoration',
+    location: 'San Diego County, CA',
+    duration: '7 Days',
+    size: '800 sq ft',
+    rating: '5.0',
+    featured: true,
+    shortDescription: 'Professional deck restoration bringing new life to outdoor living space with complete refinishing and protective coating.',
+    heroTitle: 'Transforming a Weathered Deck into a Beautiful Outdoor Retreat',
+    challenge: 'This outdoor deck had endured years of intense California sun exposure, seasonal weather changes, and daily wear that left the wood surface severely compromised. The existing finish had completely deteriorated, leaving the deck vulnerable to moisture penetration and UV damage. Wood fibers showed signs of weathering with visible graying and rough texture that made the surface uncomfortable for barefoot walking. The homeowners recognized that without professional deck restoration services, the structural integrity would continue declining, potentially requiring costly board replacement. Previous attempts at DIY maintenance had proven insufficient to address the deep-seated damage. They needed expert deck refinishing that would not only revive the appearance but provide long-lasting protection against San Diego County\'s demanding climate conditions.',
+    solution: 'Our comprehensive deck restoration approach began with detailed surface assessment to identify all problem areas requiring special attention. We employed professional-grade deck cleaning solutions to remove years of accumulated grime, mildew, and deteriorated finish material. The entire deck surface underwent precision sanding using specialized equipment to remove damaged wood fibers and reveal fresh, healthy wood underneath. This critical preparation step ensures optimal stain penetration and adhesion for maximum durability. After thorough cleaning and drying, we applied premium wood conditioner to balance absorption rates across the entire surface. The restoration continued with careful application of high-performance deck stain specifically formulated for California coastal climates. Our multi-layer finishing system includes UV-resistant compounds that protect against sun damage while enhancing the natural wood grain beauty. Final protective sealing creates a moisture barrier that prevents water infiltration while allowing the wood to breathe naturally. Every corner, edge, and detail received meticulous attention to ensure consistent coverage and professional results throughout.',
+    results: [
+      'Complete surface restoration revealing natural wood beauty',
+      'Professional-grade protective finish applied throughout',
+      'Enhanced durability against weather and UV exposure',
+      'Smooth, renewed surface perfect for outdoor activities',
+      'Extended lifespan ensuring years of enjoyment',
+      'Transformed appearance creating inviting outdoor space'
+    ],
+    images: [
+      {
+        url: '/images/1/1.webp',
+        alt: 'Restored outdoor deck',
+        caption: 'Beautifully restored deck with professional finish'
+      },
+      {
+        url: '/images/1/2.webp',
+        alt: 'Deck restoration detail',
+        caption: 'Close-up of expert refinishing work'
+      },
+      {
+        url: '/images/1/3.webp',
+        alt: 'Completed deck project',
+        caption: 'Finished deck ready for outdoor living'
+      }
+    ],
+    details: [
+      { label: 'Project Type', value: 'Complete Restoration' },
+      { label: 'Duration', value: '7 Days' },
+      { label: 'Deck Size', value: '800 square feet' },
+      { label: 'Service', value: 'Surface Preparation & Refinishing' },
+      { label: 'Protection', value: 'Premium Weather-Resistant Coating' },
+      { label: 'Warranty', value: '5 Years on Workmanship' }
+    ],
+    testimonial: {
+      name: 'Michael S.',
+      text: 'The transformation was incredible! The team was professional, efficient, and delivered exceptional results. Our deck looks brand new and we couldn\'t be happier with the quality of work.',
+      rating: 5
+    },
+    seo: {
+      title: 'Professional Deck Restoration in San Diego County | The Deck Man',
+      description: 'Expert deck restoration services bringing new life to outdoor spaces. Complete refinishing with premium protective coatings for lasting beauty.',
+      keywords: ['deck restoration san diego', 'deck refinishing california', 'professional deck staining', 'outdoor deck renovation']
+    }
+  },
+  {
+    slug: 'deck-refinishing-project',
+    title: 'Deck Refinishing Project',
+    category: 'Staining & Refinishing',
+    location: 'San Diego County, CA',
+    duration: '5 Days',
+    size: '600 sq ft',
+    rating: '5.0',
+    featured: true,
+    shortDescription: 'Expert deck refinishing service restoring beauty and protection to outdoor wood surfaces with premium staining techniques.',
+    heroTitle: 'Reviving Outdoor Living Space Through Professional Refinishing',
+    challenge: 'This expansive outdoor deck and staircase system had suffered from years of California weather exposure, with the large main deck area showing severe finish deterioration across its entire surface. The adjoining wooden staircase connecting multiple levels displayed particularly advanced weathering, with rough splintered treads creating safety concerns for daily use. The original stain had completely faded, leaving bare wood exposed to moisture infiltration and UV damage throughout the deck and stairs. The homeowners faced the challenge of coordinating restoration across both horizontal deck surfaces and vertical stair components, requiring specialized techniques for each element. Previous surface treatments had failed prematurely, creating uneven coloring and patchy protection that detracted from the home\'s curb appeal. They needed comprehensive deck and stair refinishing that would address both aesthetic concerns and long-term durability requirements. The project scope demanded careful attention to every board, railing, and step to achieve consistent, professional results across the entire outdoor structure.',
+    solution: 'Our restoration approach addressed the unique challenges of refinishing both the large deck platform and integrated staircase system through systematic surface preparation and application techniques. We began with specialized cleaning methods appropriate for horizontal deck surfaces and vertical stair components, removing years of accumulated weathering and failed finish material. The extensive sanding process required different equipment and techniques for deck boards versus stair treads and risers, ensuring optimal surface preparation throughout. Our team paid meticulous attention to staircase details including treads, risers, stringers, and railings, recognizing that stairs receive different wear patterns than deck surfaces. Premium exterior stain application proceeded in carefully planned stages, allowing proper drying between deck and stair sections to maintain project workflow. The stain system selected provides enhanced traction for stair safety while delivering uniform appearance across both deck and staircase elements. Special focus on high-traffic stair areas included additional protective coatings for extended durability. Final inspection verified consistent color, complete coverage, and proper protection across every surface of this extensive deck and stair restoration project.',
+    results: [
+      'Restored rich wood color and natural grain visibility',
+      'Eliminated rough spots creating smooth walking surface',
+      'Applied superior UV protection for long-lasting finish',
+      'Enhanced water resistance preventing moisture damage',
+      'Completed on schedule for family event deadline',
+      'Transformed deck into beautiful entertainment space'
+    ],
+    images: [
+      {
+        url: '/images/2/1.webp',
+        alt: 'Refinished deck project',
+        caption: 'Professional deck refinishing results'
+      },
+      {
+        url: '/images/2/2.webp',
+        alt: 'Deck staining detail',
+        caption: 'Expert staining technique application'
+      }
+    ],
+    details: [
+      { label: 'Project Type', value: 'Staining & Refinishing' },
+      { label: 'Duration', value: '5 Days' },
+      { label: 'Deck Size', value: '600 square feet' },
+      { label: 'Service', value: 'Complete Surface Refinishing' },
+      { label: 'Protection', value: 'UV-Resistant Premium Stain' },
+      { label: 'Warranty', value: '5 Years on Workmanship' }
+    ],
+    testimonial: {
+      name: 'Sarah M.',
+      text: 'Outstanding work! The deck looks absolutely incredible. They completed everything on time and the quality exceeded our expectations. Highly professional service.',
+      rating: 5
+    },
+    seo: {
+      title: 'Professional Deck Refinishing Services San Diego | The Deck Man',
+      description: 'Expert deck refinishing and staining services in San Diego County. Premium finishes for lasting outdoor beauty and protection.',
+      keywords: ['deck refinishing san diego', 'deck staining service', 'wood deck refinishing', 'deck surface restoration']
+    }
+  },
+  {
+    slug: 'wood-deck-maintenance',
+    title: 'Wood Deck Maintenance',
+    category: 'Maintenance & Care',
+    location: 'San Diego County, CA',
+    duration: '4 Days',
+    size: '500 sq ft',
+    rating: '5.0',
+    featured: true,
+    shortDescription: 'Comprehensive deck maintenance service providing protective care and surface treatment for long-term wood preservation.',
+    heroTitle: 'Protecting Your Investment With Expert Deck Maintenance',
+    challenge: 'This compact front porch deck served as the home\'s primary entrance and first impression for visitors, making its deteriorated appearance particularly concerning for the homeowners. The small but highly visible deck area had suffered from concentrated foot traffic and direct weather exposure in its prominent front-of-home location. Years of seasonal temperature changes and moisture exposure had degraded the protective finish, leaving the wood vulnerable to accelerated weathering. The front porch deck showed uneven fading with darker areas where water pooled and lighter sections suffering from intense sun exposure. Surface roughness had developed across the boards, creating an unwelcoming texture that detracted from the home\'s curb appeal and entry experience. Despite its modest size, the front deck\'s high visibility and daily use made its condition a priority concern. The homeowners wanted professional refinishing that would restore the welcoming appearance befitting their home\'s front entrance while providing durable protection against ongoing weather exposure and foot traffic.',
+    solution: 'Our front porch deck refinishing focused on maximizing aesthetic impact and durability for this small but prominent outdoor space. We began with thorough surface preparation specifically suited to the compact area, ensuring every detail received careful attention given the deck\'s high visibility. Professional cleaning removed embedded dirt and traffic patterns that had accumulated in this frequently used entrance area. The sanding process addressed surface roughness while preparing the wood for optimal stain absorption, with special attention to board edges and corners visible from the street. Stain selection emphasized both appearance and practical durability appropriate for a heavily trafficked front entrance exposed to full weather conditions. Application technique ensured even coverage across the entire small deck surface, eliminating any trace of previous uneven weathering or fading. We provided enhanced edge protection where the front deck meets the home\'s siding and foundation areas. The completed front porch deck restoration delivered immediate curb appeal improvement while establishing long-lasting protection for this important home entrance feature.',
+    results: [
+      'Halted deterioration protecting deck structure',
+      'Eliminated mildew and surface discoloration',
+      'Restored consistent protective finish coverage',
+      'Repaired minor damage preventing larger issues',
+      'Established maintenance plan for long-term care',
+      'Extended deck lifespan through preventive service'
+    ],
+    images: [
+      {
+        url: '/images/3/1.webp',
+        alt: 'Deck maintenance service',
+        caption: 'Professional deck maintenance and care'
+      },
+      {
+        url: '/images/3/2.webp',
+        alt: 'Wood deck treatment',
+        caption: 'Protective treatment application'
+      }
+    ],
+    details: [
+      { label: 'Project Type', value: 'Maintenance & Care' },
+      { label: 'Duration', value: '4 Days' },
+      { label: 'Deck Size', value: '500 square feet' },
+      { label: 'Service', value: 'Complete Maintenance Service' },
+      { label: 'Protection', value: 'Maintenance Coat Application' },
+      { label: 'Warranty', value: '3 Years on Workmanship' }
+    ],
+    testimonial: {
+      name: 'Robert K.',
+      text: 'Great maintenance service that saved our deck! They were thorough, professional, and explained everything. The deck looks so much better now.',
+      rating: 5
+    },
+    seo: {
+      title: 'Deck Maintenance Services San Diego County | The Deck Man',
+      description: 'Professional deck maintenance and care services. Protect your wood deck investment with expert treatment and preservation.',
+      keywords: ['deck maintenance san diego', 'wood deck care', 'deck preservation service', 'deck cleaning and treatment']
+    }
+  },
+  {
+    slug: 'outdoor-deck-renovation',
+    title: 'Outdoor Deck Renovation',
+    category: 'Complete Renovation',
+    location: 'San Diego County, CA',
+    duration: '8 Days',
+    size: '900 sq ft',
+    rating: '5.0',
+    featured: true,
+    shortDescription: 'Full-scale deck renovation transforming deteriorated outdoor space into stunning entertainment area with modern finishes.',
+    heroTitle: 'Complete Deck Transformation Creating Dream Outdoor Space',
+    challenge: 'This substantial exterior staircase provided essential access between home levels but had deteriorated to the point of safety concerns requiring immediate professional intervention. The large wooden stair structure showed signs of structural weakness with loose treads, wobbly railings, and compromised support posts that created hazardous conditions for daily use. Years of weather exposure without proper maintenance had resulted in rotted wood components throughout the staircase system, particularly at connection points where moisture accumulates. The existing finish had completely failed, leaving the stair surfaces rough, splintered, and vulnerable to accelerated decay from moisture penetration. Structural instability meant that surface refinishing alone would be insufficient - the staircase required comprehensive reinforcement before any cosmetic work could proceed. The homeowners recognized the urgency of addressing both safety and structural integrity while also restoring the staircase to an attractive appearance. This renovation demanded expertise in both structural carpentry and finish work to transform the failing staircase into a safe, durable, and beautiful architectural element.',
+    solution: 'Our staircase renovation project began with thorough structural assessment identifying all components requiring replacement or reinforcement to ensure long-term safety and stability. We systematically replaced compromised stair treads, reinforced wobbly railings, and stabilized support posts using quality materials and proper construction techniques. Structural repairs included upgrading connection hardware, reinforcing stringers, and ensuring the entire staircase system met modern building standards for strength and stability. After completing all structural work, we proceeded with comprehensive surface preparation across every stair component - treads, risers, stringers, posts, and railings. The extensive sanding process restored smooth, safe surfaces while preparing the wood for optimal finish adhesion and penetration. Premium exterior stain application provided both beauty and protection, with special attention to horizontal stair treads that receive maximum wear and weather exposure. We applied enhanced protective coatings to high-stress areas including treads and handrails for extended durability under heavy use conditions. The completed staircase transformation delivered structural integrity, safety, and visual appeal that will serve the home reliably for many years to come.',
+    results: [
+      'Complete structural renovation ensuring safety and stability',
+      'Replaced damaged components with quality materials',
+      'Applied premium finish system for lasting beauty',
+      'Transformed layout for enhanced functionality',
+      'Created stunning outdoor entertainment space',
+      'Increased home value through quality renovation'
+    ],
+    images: [
+      {
+        url: '/images/4/1.webp',
+        alt: 'Renovated outdoor deck',
+        caption: 'Complete deck renovation transformation'
+      },
+      {
+        url: '/images/4/2.webp',
+        alt: 'Deck renovation progress',
+        caption: 'Professional renovation process'
+      },
+      {
+        url: '/images/4/3.webp',
+        alt: 'Finished deck renovation',
+        caption: 'Beautiful completed renovation'
+      }
+    ],
+    details: [
+      { label: 'Project Type', value: 'Complete Renovation' },
+      { label: 'Duration', value: '8 Days' },
+      { label: 'Deck Size', value: '900 square feet' },
+      { label: 'Service', value: 'Full Structural & Surface Renovation' },
+      { label: 'Protection', value: 'Premium Multi-Layer Finish System' },
+      { label: 'Warranty', value: '7 Years on Workmanship' }
+    ],
+    testimonial: {
+      name: 'Jennifer L.',
+      text: 'We are thrilled with our renovated deck! The team handled everything professionally and the results are spectacular. It\'s like having a brand new outdoor room.',
+      rating: 5
+    },
+    seo: {
+      title: 'Deck Renovation Services San Diego County | The Deck Man',
+      description: 'Complete deck renovation services transforming deteriorated decks into beautiful outdoor spaces. Expert structural and aesthetic improvements.',
+      keywords: ['deck renovation san diego', 'deck remodel', 'complete deck renovation', 'deck transformation service']
+    }
+  },
+  {
     slug: 'luxury-hillside-deck',
     title: 'Luxury Hillside Deck Transformation',
     category: 'Complete Restoration',
