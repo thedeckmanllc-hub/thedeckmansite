@@ -23,7 +23,8 @@
       "Bash(npx next build:*)",
       "Bash(git checkout:*)",
       "Bash(git stash:*)",
-      "Bash(set NODE_OPTIONS=--no-turbopack)"
+      "Bash(set NODE_OPTIONS=--no-turbopack)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
