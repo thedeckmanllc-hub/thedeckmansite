@@ -2,26 +2,40 @@ import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { siteConfig, jsonLdConfig } from '@/lib/seo-config'
 import './globals.css'
 
 const _montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", weight: ["300", "400", "500", "600", "700", "800", "900"] });
 
 export const metadata: Metadata = {
-  title: 'The Deck Man | Professional Deck Restoration & Refinishing',
-  description: 'Expert deck restoration, sanding, staining, and repair services. Bring your deck back to life with The Deck Man - Licensed, Insured, 5-Star Rated.',
-  keywords: 'deck restoration, deck refinishing, deck staining, deck repair, wood deck sanding, deck sealing',
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.defaultMetadata.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.defaultMetadata.keywords,
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   manifest: '/manifest.json',
-  generator: 'v0.app',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
     apple: '/favicon.ico',
   },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: 'The Deck Man | Professional Deck Restoration & Refinishing',
-    description: 'Expert deck restoration, sanding, staining, and repair services. Bring your deck back to life with The Deck Man - Licensed, Insured, 5-Star Rated.',
-    url: 'https://thedeckman.com',
-    siteName: 'The Deck Man',
+    type: 'website',
+    locale: 'en_US',
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.defaultMetadata.title,
+    description: siteConfig.description,
     images: [
       {
         url: '/og-image.png',
@@ -30,14 +44,30 @@ export const metadata: Metadata = {
         alt: 'The Deck Man - Professional Deck Restoration',
       },
     ],
-    locale: 'en_US',
-    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Deck Man | Professional Deck Restoration & Refinishing',
-    description: 'Expert deck restoration, sanding, staining, and repair services.',
+    title: siteConfig.defaultMetadata.title,
+    description: siteConfig.description,
     images: ['/og-image.png'],
+    creator: '@thedeckman',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
+  alternates: {
+    canonical: siteConfig.url,
   },
 }
 
@@ -54,6 +84,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdConfig.organization),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdConfig.website),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdConfig.localBusiness),
+          }}
+        />
+      </head>
       <body className={`${_montserrat.variable} font-sans antialiased`}>
         {children}
         <Analytics />
