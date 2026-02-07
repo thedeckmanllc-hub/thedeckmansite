@@ -31,6 +31,8 @@ export function DarkLuxury() {
     zipCode: '',
     message: ''
   })
+  const [touchStart, setTouchStart] = useState<number>(0)
+  const [touchEnd, setTouchEnd] = useState<number>(0)
 
   // Scroll detection for navbar
   useEffect(() => {
@@ -242,6 +244,40 @@ export function DarkLuxury() {
       const prevGroup = prev - 3
       return prevGroup < 0 ? Math.floor((testimonials.length - 1) / 3) * 3 : prevGroup
     })
+  }
+
+  const nextTestimonialMobile = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+  }
+
+  const prevTestimonialMobile = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+
+    const distance = touchStart - touchEnd
+    const minSwipeDistance = 50
+
+    if (Math.abs(distance) < minSwipeDistance) return
+
+    if (distance > 0) {
+      nextTestimonialMobile()
+    } else {
+      prevTestimonialMobile()
+    }
+
+    setTouchStart(0)
+    setTouchEnd(0)
   }
 
   const reviewPlatforms = [
@@ -486,7 +522,7 @@ export function DarkLuxury() {
           <div className="flex flex-col sm:flex-row justify-center px-4" style={{gap: 'clamp(1rem, 1.5vw, 1.5rem)', marginBottom: 'clamp(3rem, 5vw, 4rem)'}}>
             <Link
               href="#contact"
-              className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+              className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
               style={{padding: 'clamp(1rem, 1.3vw, 1.25rem) clamp(2rem, 2.5vw, 2.5rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1.125rem)'}}
             >
               {/* Animated background */}
@@ -873,23 +909,24 @@ export function DarkLuxury() {
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
             {/* Logo Section */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="md:flex-shrink-0"
             >
               <Image
                 src="/logo.svg"
                 alt="The Deck Man"
                 width={400}
                 height={200}
-                className="h-40 w-auto brightness-0 invert"
+                className="h-24 md:h-40 w-auto brightness-0 invert"
               />
             </motion.div>
 
-            {/* Text content */}
+            {/* Text content - desktop only */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -906,17 +943,18 @@ export function DarkLuxury() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="md:flex-shrink-0"
             >
               <Link
                 href="#contact"
-                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-white text-accent font-montserrat font-bold text-xl rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50"
+                className="group relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-3 md:py-5 bg-white text-accent font-montserrat font-bold text-base md:text-xl rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50"
               >
                 {/* Animated background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-wood-light/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Button content */}
                 <span className="relative z-10">Get Free Estimate</span>
-                <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="relative z-10 w-5 md:w-6 h-5 md:h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
 
@@ -925,18 +963,6 @@ export function DarkLuxury() {
               </Link>
             </motion.div>
           </div>
-
-          {/* Mobile text - shown below on small screens */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="lg:hidden text-center mt-4"
-          >
-            <h3 className="text-white text-2xl font-bold font-montserrat">
-              Transform Your Deck Today
-            </h3>
-          </motion.div>
         </div>
       </section>
 
@@ -968,8 +994,76 @@ export function DarkLuxury() {
             </p>
           </motion.div>
 
-          {/* Carousel */}
-          <div className="relative max-w-[1400px] mx-auto mb-12">
+          {/* Mobile Carousel - Single Testimonial with Swipe */}
+          <div className="md:hidden relative max-w-[600px] mx-auto mb-12">
+            <div
+              className="overflow-hidden px-2"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentTestimonial}
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -100 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="px-2"
+                >
+                  <div className="p-6 bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-2xl border-2 border-accent/30 hover:border-accent/50 transition-all flex flex-col min-h-[320px]">
+                    {/* Stars */}
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                        <svg key={i} className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+
+                    {/* Review Text */}
+                    <p className="text-wood-light/90 text-base leading-relaxed mb-auto italic">
+                      &quot;{testimonials[currentTestimonial].text}&quot;
+                    </p>
+
+                    {/* Author Info */}
+                    <div className="flex items-center gap-3 pt-4 mt-4 border-t border-accent/20">
+                      <div className="w-12 h-12 bg-gradient-to-br from-accent to-accent/60 rounded-full flex items-center justify-center text-white font-bold text-base shadow-lg shadow-accent/30 flex-shrink-0">
+                        {testimonials[currentTestimonial].name.charAt(0)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white font-montserrat font-bold text-base mb-0.5">
+                          {testimonials[currentTestimonial].name}
+                        </p>
+                        <p className="text-wood-light/60 text-sm">
+                          {testimonials[currentTestimonial].location}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Mobile Dots Indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`transition-all ${
+                    currentTestimonial === index
+                      ? 'w-8 h-2 bg-accent rounded-full'
+                      : 'w-2 h-2 bg-accent/30 rounded-full hover:bg-accent/50'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Carousel - Three Testimonials */}
+          <div className="hidden md:block relative max-w-[1400px] mx-auto mb-12">
             <div className="overflow-hidden px-12">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -1027,10 +1121,11 @@ export function DarkLuxury() {
               </AnimatePresence>
             </div>
 
-            {/* Navigation Buttons */}
+            {/* Desktop Navigation Buttons */}
             <button
               onClick={prevTestimonial}
               className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-accent/20 backdrop-blur-sm hover:bg-accent border-2 border-accent/30 hover:border-accent rounded-full flex items-center justify-center transition-all hover:scale-110 group z-10"
+              aria-label="Previous three testimonials"
             >
               <svg className="w-5 h-5 text-accent group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
@@ -1039,13 +1134,14 @@ export function DarkLuxury() {
             <button
               onClick={nextTestimonial}
               className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-accent/20 backdrop-blur-sm hover:bg-accent border-2 border-accent/30 hover:border-accent rounded-full flex items-center justify-center transition-all hover:scale-110 group z-10"
+              aria-label="Next three testimonials"
             >
               <svg className="w-5 h-5 text-accent group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
-            {/* Dots Indicator */}
+            {/* Desktop Dots Indicator */}
             <div className="flex justify-center gap-2 mt-8">
               {Array.from({ length: Math.ceil(testimonials.length / 3) }).map((_, index) => (
                 <button
@@ -1056,6 +1152,7 @@ export function DarkLuxury() {
                       ? 'w-8 h-2 bg-accent rounded-full'
                       : 'w-2 h-2 bg-accent/30 rounded-full hover:bg-accent/50'
                   }`}
+                  aria-label={`Go to testimonials ${index * 3 + 1}-${Math.min(index * 3 + 3, testimonials.length)}`}
                 />
               ))}
             </div>
@@ -1410,13 +1507,13 @@ export function DarkLuxury() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="p-[52px] bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10"
+              className="p-6 md:p-[52px] bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10"
             >
-              <p className="text-wood-light/70 mb-10 text-center text-lg">
+              <p className="text-wood-light/70 mb-6 md:mb-10 text-center text-base md:text-lg">
                 Fill out the form below and we&apos;ll contact you within 24 hours.
               </p>
 
-              <div className="space-y-5">
+              <div className="space-y-4 md:space-y-5">
                 {/* Full Name */}
                 <div>
                   <label

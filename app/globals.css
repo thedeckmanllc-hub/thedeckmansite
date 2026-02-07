@@ -142,18 +142,21 @@
 
 /* Responsive typography for different monitor sizes */
 :root {
-  /* Fluid font sizes using clamp() for universal scaling */
-  --text-hero: clamp(2.5rem, 5vw, 5rem);
-  --text-h1: clamp(2rem, 4vw, 4rem);
-  --text-h2: clamp(1.75rem, 3vw, 3rem);
-  --text-h3: clamp(1.5rem, 2.5vw, 2.5rem);
-  --text-subtitle: clamp(1rem, 1.5vw, 1.5rem);
-  --text-body: clamp(0.95rem, 1.1vw, 1.125rem);
+  /* Fluid font sizes using clamp() for universal scaling
+     Adjusted MIN values to be MUCH smaller on 15" monitors for better proportions
+     Formula: clamp(MIN, CALC, MAX) where CALC uses vw for smooth scaling
+  */
+  --text-hero: clamp(1.5rem, 0.75rem + 3vw, 4.5rem);      /* 24px → 72px (reduced from 28px) */
+  --text-h1: clamp(1.25rem, 0.625rem + 2.5vw, 3.5rem);    /* 20px → 56px (reduced from 24px) */
+  --text-h2: clamp(1.125rem, 0.5rem + 2vw, 2.75rem);      /* 18px → 44px (reduced from 20px) */
+  --text-h3: clamp(1rem, 0.5rem + 1.75vw, 2.25rem);       /* 16px → 36px (reduced from 18px) */
+  --text-subtitle: clamp(0.875rem, 0.4375rem + 1.25vw, 1.5rem); /* 14px → 24px (reduced from 15px) */
+  --text-body: clamp(0.8125rem, 0.4375rem + 1vw, 1.125rem); /* 13px → 18px (reduced from 14px) */
 
-  /* Fluid spacing */
-  --spacing-section: clamp(4rem, 8vw, 8rem);
-  --spacing-content: clamp(2rem, 4vw, 4rem);
-  --spacing-gap: clamp(1rem, 2vw, 2rem);
+  /* Fluid spacing - MORE aggressive reduction for 15" monitors */
+  --spacing-section: clamp(2.5rem, 1rem + 5vw, 7rem);     /* 40px → 112px (reduced from 48px) */
+  --spacing-content: clamp(1.25rem, 0.5rem + 3vw, 3.5rem); /* 20px → 56px (reduced from 24px) */
+  --spacing-gap: clamp(0.625rem, 0.25rem + 1.5vw, 1.75rem); /* 10px → 28px (reduced from 12px) */
 
   /* Container max-widths adjusted for different screens */
   --container-narrow: min(90vw, 900px);

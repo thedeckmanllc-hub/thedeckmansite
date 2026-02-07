@@ -26,7 +26,7 @@ export const servicesData: Service[] = [
   },
   {
     icon: 'painting',
-    title: 'Deck Staining & Painting',
+    title: 'Staining & Painting',
     description: 'Premium quality stains and paints that enhance natural wood beauty while providing weather protection.',
   },
   {

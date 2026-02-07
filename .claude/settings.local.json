@@ -18,7 +18,12 @@
       "Bash(timeout:*)",
       "Bash(exit 0)",
       "Bash(npm run start:*)",
-      "Bash(npx next dev:*)"
+      "Bash(npx next dev:*)",
+      "Bash(ping:*)",
+      "Bash(npx next build:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(set NODE_OPTIONS=--no-turbopack)"
     ],
     "deny": [],
     "ask": []

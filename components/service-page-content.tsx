@@ -5,19 +5,24 @@ import Link from 'next/link'
 import { ServiceIcon } from '@/components/service-icon'
 import { ServiceContent } from '@/lib/services-content'
 import { contactInfo } from '@/lib/types'
+import { useEffect } from 'react'
 
 interface ServicePageContentProps {
   service: ServiceContent
 }
 
 export function ServicePageContent({ service }: ServicePageContentProps) {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-dark via-charcoal to-dark">
       {/* Back Button */}
       <div className="fixed top-6 left-6 z-50">
         <Link
-          href="/#services"
+          href="/"
+          scroll={true}
           className="flex items-center gap-2 px-4 py-2 bg-charcoal/90 border-2 border-accent/30 hover:border-accent rounded-lg transition-all duration-300 hover:scale-105 backdrop-blur-sm group"
         >
           <svg
