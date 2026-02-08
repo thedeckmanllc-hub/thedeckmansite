@@ -2,14 +2,14 @@
 
 export const siteConfig = {
   name: 'The Deck Man',
-  url: 'https://thedeckman.com',
+  url: 'https://thedeckmansd.com',
   description: 'Expert deck restoration, sanding, staining, and repair services. Bring your deck back to life with The Deck Man - Licensed, Insured, 5-Star Rated.',
 
   business: {
     name: 'The Deck Man',
     legalName: 'The Deck Man, LLC',
     phone: '+1 (760) 555-1234',
-    email: 'info@thedeckman.com',
+    email: 'info@thedeckmansd.com',
     address: {
       street: '35165 Citron Ln',
       city: 'Fallbrook',
