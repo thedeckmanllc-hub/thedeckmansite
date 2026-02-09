@@ -4,7 +4,7 @@ import { getProjectBySlug } from '@/lib/projects-content'
 import { ProjectPageContent } from '@/components/project-page-content'
 import { generateProjectMetadata, generateProjectSchema, generateBreadcrumbSchema } from '@/lib/seo-utils'
 
-const slug = 'wood-deck-maintenance'
+const slug = 'ipe-wood-deck-restoration'
 
 export async function generateMetadata(): Promise<Metadata> {
   const project = getProjectBySlug(slug)
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   })
 }
 
-export default function WoodDeckMaintenancePage() {
+export default function IpeWoodDeckRestorationPage() {
   const project = getProjectBySlug(slug)
 
   if (!project) {

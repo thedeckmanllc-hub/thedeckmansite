@@ -35,6 +35,63 @@ export interface ProjectContent {
 
 export const projectsContent: ProjectContent[] = [
   {
+    slug: 'ipe-wood-deck-restoration',
+    title: 'IPE Wood Deck Restoration',
+    category: 'Exotic Hardwood',
+    location: 'San Diego County, CA',
+    duration: 'Project Specific',
+    size: '600 sq ft',
+    rating: '5.0',
+    featured: true,
+    shortDescription: 'Specialized restoration of IPE decking, preserving the density and beauty of exotic hardwood.',
+    heroTitle: 'Restoring the Natural Beauty of Exotic IPE Hardwood',
+    challenge: 'This IPE hardwood deck had lost its lustrous reddish-brown color due to prolonged exposure to the elements, developing the silver-gray patina characteristic of oxidized exotic woods. While IPE is incredibly durable, the homeowner wished to revive its original vibrant appearance. The challenge with dense hardwoods like IPE is ensuring that restoration methods are gentle enough to preserve the wood\'s integrity while being effective enough to remove the oxidation. Previous coatings had worn unevenly, and the surface required careful preparation to ensure the new protective oil would penetrate effectively without sitting on the surface and peeling.',
+    solution: 'We employed a specialized restoration process tailored specifically for high-density exotic hardwoods. The project began with a soft wash to remove surface contaminants and mildew without damaging the wood fibers. We then performed a light, precision sanding to remove the oxidized layer and open the wood grain slightly. This step is critical for IPE to accept treatment. Instead of a surface film that can peel, we applied a high-quality penetrating hardwood oil. This oil is designed to soak into the dense grain, nourishing the wood and enhancing its natural color while providing breathability and protection against moisture and UV rays.',
+    results: [
+      'Restored the deep, rich natural color of IPE wood',
+      'Removed silver-gray oxidation and surface impurities',
+      'Applied penetrating oil for long-lasting protection',
+      'Enhanced the wood\'s natural grain and texture',
+      'Preserved the structural integrity of the hardwood',
+      'Provided a breathable finish that will not peel'
+    ],
+    images: [
+      {
+        url: '/images/5/1.webp',
+        alt: 'Restored IPE wood deck',
+        caption: 'IPE deck restored to its natural vibrant color'
+      },
+      {
+        url: '/images/5/2.webp',
+        alt: 'IPE deck detail',
+        caption: 'Rich detail of the restored hardwood grain'
+      },
+      {
+        url: '/images/5/3.webp',
+        alt: 'Completed IPE restoration',
+        caption: 'Full view of the revitalized outdoor space'
+      }
+    ],
+    details: [
+      { label: 'Project Type', value: 'Exotic Hardwood Restoration' },
+      { label: 'Wood Type', value: 'IPE (Brazilian Walnut)' },
+      { label: 'Deck Size', value: '600 square feet' },
+      { label: 'Service', value: 'Restoration & Oiling' },
+      { label: 'Finish', value: 'Penetrating Hardwood Oil' },
+      { label: 'Maintenance', value: 'Annual Oiling Recommended' }
+    ],
+    testimonial: {
+      name: 'James P.',
+      text: 'I didn\'t realize how beautiful my IPE deck could look again. The transformation from gray to that rich brown is amazing. Professional team and great attention to detail.',
+      rating: 5
+    },
+    seo: {
+      title: 'IPE Wood Deck Restoration San Diego | The Deck Man',
+      description: 'Expert IPE and exotic hardwood deck restoration. We restore the natural beauty of Brazilian Walnut with specialized cleaning and oiling services.',
+      keywords: ['ipe deck restoration', 'exotic hardwood care', 'ipe wood oiling', 'brazilian walnut deck', 'hardwood deck refinishing']
+    }
+  },
+  {
     slug: 'outdoor-deck-restoration',
     title: 'Outdoor Deck Restoration',
     category: 'Complete Restoration',
@@ -141,58 +198,6 @@ export const projectsContent: ProjectContent[] = [
       title: 'Professional Deck Refinishing Services San Diego | The Deck Man',
       description: 'Expert deck refinishing and staining services in San Diego County. Premium finishes for lasting outdoor beauty and protection.',
       keywords: ['deck refinishing san diego', 'deck staining service', 'wood deck refinishing', 'deck surface restoration']
-    }
-  },
-  {
-    slug: 'wood-deck-maintenance',
-    title: 'Wood Deck Maintenance',
-    category: 'Maintenance & Care',
-    location: 'San Diego County, CA',
-    duration: '4 Days',
-    size: '500 sq ft',
-    rating: '5.0',
-    featured: true,
-    shortDescription: 'Comprehensive deck maintenance service providing protective care and surface treatment for long-term wood preservation.',
-    heroTitle: 'Protecting Your Investment With Expert Deck Maintenance',
-    challenge: 'This compact front porch deck served as the home\'s primary entrance and first impression for visitors, making its deteriorated appearance particularly concerning for the homeowners. The small but highly visible deck area had suffered from concentrated foot traffic and direct weather exposure in its prominent front-of-home location. Years of seasonal temperature changes and moisture exposure had degraded the protective finish, leaving the wood vulnerable to accelerated weathering. The front porch deck showed uneven fading with darker areas where water pooled and lighter sections suffering from intense sun exposure. Surface roughness had developed across the boards, creating an unwelcoming texture that detracted from the home\'s curb appeal and entry experience. Despite its modest size, the front deck\'s high visibility and daily use made its condition a priority concern. The homeowners wanted professional refinishing that would restore the welcoming appearance befitting their home\'s front entrance while providing durable protection against ongoing weather exposure and foot traffic.',
-    solution: 'Our front porch deck refinishing focused on maximizing aesthetic impact and durability for this small but prominent outdoor space. We began with thorough surface preparation specifically suited to the compact area, ensuring every detail received careful attention given the deck\'s high visibility. Professional cleaning removed embedded dirt and traffic patterns that had accumulated in this frequently used entrance area. The sanding process addressed surface roughness while preparing the wood for optimal stain absorption, with special attention to board edges and corners visible from the street. Stain selection emphasized both appearance and practical durability appropriate for a heavily trafficked front entrance exposed to full weather conditions. Application technique ensured even coverage across the entire small deck surface, eliminating any trace of previous uneven weathering or fading. We provided enhanced edge protection where the front deck meets the home\'s siding and foundation areas. The completed front porch deck restoration delivered immediate curb appeal improvement while establishing long-lasting protection for this important home entrance feature.',
-    results: [
-      'Halted deterioration protecting deck structure',
-      'Eliminated mildew and surface discoloration',
-      'Restored consistent protective finish coverage',
-      'Repaired minor damage preventing larger issues',
-      'Established maintenance plan for long-term care',
-      'Extended deck lifespan through preventive service'
-    ],
-    images: [
-      {
-        url: '/images/3/1.webp',
-        alt: 'Deck maintenance service',
-        caption: 'Professional deck maintenance and care'
-      },
-      {
-        url: '/images/3/2.webp',
-        alt: 'Wood deck treatment',
-        caption: 'Protective treatment application'
-      }
-    ],
-    details: [
-      { label: 'Project Type', value: 'Maintenance & Care' },
-      { label: 'Duration', value: '4 Days' },
-      { label: 'Deck Size', value: '500 square feet' },
-      { label: 'Service', value: 'Complete Maintenance Service' },
-      { label: 'Protection', value: 'Maintenance Coat Application' },
-      { label: 'Warranty', value: '3 Years on Workmanship' }
-    ],
-    testimonial: {
-      name: 'Robert K.',
-      text: 'Great maintenance service that saved our deck! They were thorough, professional, and explained everything. The deck looks so much better now.',
-      rating: 5
-    },
-    seo: {
-      title: 'Deck Maintenance Services San Diego County | The Deck Man',
-      description: 'Professional deck maintenance and care services. Protect your wood deck investment with expert treatment and preservation.',
-      keywords: ['deck maintenance san diego', 'wood deck care', 'deck preservation service', 'deck cleaning and treatment']
     }
   },
   {
@@ -556,17 +561,17 @@ export const projectsContent: ProjectContent[] = [
     ],
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop',
+        url: '/images/1/1.webp',
         alt: 'Backyard paradise deck',
         caption: 'Transformed deck with custom pergola'
       },
       {
-        url: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&h=800&fit=crop',
+        url: '/images/1/2.webp',
         alt: 'Deck with integrated seating',
         caption: 'Built-in bench seating for entertaining'
       },
       {
-        url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop',
+        url: '/images/1/3.webp',
         alt: 'Deck refinishing process',
         caption: 'Premium honey-tone stain application'
       }
