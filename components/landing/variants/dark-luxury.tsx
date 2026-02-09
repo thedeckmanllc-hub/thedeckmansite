@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { servicesData, contactInfo, serviceSlugMap } from '@/lib/types'
 import { ServiceIcon } from '@/components/service-icon'
 import { useState, useEffect } from 'react'
+import { LogoSvg } from '@/components/ui/logo-svg'
 import { projectsContent } from '@/lib/projects-content'
 
 export function DarkLuxury() {
@@ -1688,13 +1689,7 @@ export function DarkLuxury() {
 
               {/* Logo Section */}
               <div className="flex justify-center order-2 lg:order-1">
-                <Image
-                  src="/logo.svg"
-                  alt="The Deck Man"
-                  width={336}
-                  height={168}
-                  className="!w-[336px] !h-auto opacity-90"
-                />
+                <LogoSvg className="w-[336px] h-auto text-white opacity-90" />
               </div>
             </motion.div>
           </div>
