@@ -163,7 +163,7 @@ export function DarkLuxury() {
   }
 
   const stats = [
-    { number: '50+', label: 'Projects Completed' },
+    { number: '300+', label: 'Projects Completed' },
     { number: '4+', label: 'Years Experience' },
     { number: '100%', label: 'Satisfaction' },
   ]
@@ -295,7 +295,7 @@ export function DarkLuxury() {
     },
     {
       question: 'What areas do you serve?',
-      answer: 'We proudly serve Fallbrook and surrounding areas in San Diego County. Contact us to confirm we service your location.'
+      answer: 'We proudly serve all of San Diego County and surrounding areas. Contact us to confirm we service your location.'
     },
     {
       question: 'What is the best time of year to restore a deck?',
@@ -517,7 +517,7 @@ export function DarkLuxury() {
           </h1>
 
           <p className="text-adaptive-subtitle text-wood-light/90 mx-auto leading-relaxed font-light text-center px-4" style={{marginBottom: 'clamp(3rem, 5vw, 4rem)', maxWidth: 'min(85vw, 1000px)'}}>
-            Expert deck restoration, refinishing, and maintenance services in Fallbrook, CA.
+            Expert deck restoration, refinishing, and maintenance services in San Diego County.
             <span className="block mt-2 text-accent">Where craftsmanship meets elegance.</span>
           </p>
 
@@ -1421,95 +1421,12 @@ export function DarkLuxury() {
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              {/* Logo Section */}
-              <div className="flex justify-center">
-                <Image
-                  src="/logo.svg"
-                  alt="The Deck Man"
-                  width={336}
-                  height={168}
-                  className="!w-[336px] !h-auto opacity-90"
-                />
-              </div>
-
-              {/* Contact Information */}
-              <div className="p-8 bg-gradient-to-br from-charcoal/80 to-dark/80 rounded-2xl border border-accent/30">
-                <h3 className="font-montserrat text-3xl font-bold text-white mb-6">Contact Information</h3>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-wood-light/60 text-sm mb-1">Phone</div>
-                      <a href={`tel:${contactInfo.phone}`} className="text-white text-lg font-semibold hover:text-accent transition-colors">
-                        {contactInfo.phone}
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-wood-light/60 text-sm mb-1">Email</div>
-                      <a href={`mailto:${contactInfo.email}`} className="text-white text-lg font-semibold hover:text-accent transition-colors">
-                        {contactInfo.email}
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-wood-light/60 text-sm mb-1">Location</div>
-                      <div className="text-white text-lg font-semibold">
-                        {contactInfo.city}, {contactInfo.state}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-8 border-t border-accent/20">
-                  <div className="text-wood-light/80 mb-4">Business Hours</div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-white">
-                      <span>Monday - Friday</span>
-                      <span className="font-semibold">8:00 AM - 6:00 PM</span>
-                    </div>
-                    <div className="flex justify-between text-white">
-                      <span>Saturday</span>
-                      <span className="font-semibold">9:00 AM - 4:00 PM</span>
-                    </div>
-                    <div className="flex justify-between text-wood-light/60">
-                      <span>Sunday</span>
-                      <span>Closed</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
             <motion.form
               onSubmit={handleSubmit}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="p-6 md:p-[52px] bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10"
+              className="p-6 md:p-[52px] bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10 lg:order-2"
             >
               <p className="text-wood-light/70 mb-6 md:mb-10 text-center text-base md:text-lg">
                 Fill out the form below and we&apos;ll contact you within 24 hours.
@@ -1697,6 +1614,89 @@ export function DarkLuxury() {
                 )}
               </div>
             </motion.form>
+
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col gap-6 lg:order-1"
+            >
+              {/* Contact Information */}
+              <div className="p-8 bg-gradient-to-br from-charcoal/80 to-dark/80 rounded-2xl border border-accent/30 order-1 lg:order-2">
+                <h3 className="font-montserrat text-3xl font-bold text-white mb-6">Contact Information</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-wood-light/60 text-sm mb-1">Phone</div>
+                      <a href={`tel:${contactInfo.phone}`} className="text-white text-lg font-semibold hover:text-accent transition-colors">
+                        {contactInfo.phone}
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-wood-light/60 text-sm mb-1">Email</div>
+                      <a href={`mailto:${contactInfo.email}`} className="text-white text-lg font-semibold hover:text-accent transition-colors">
+                        {contactInfo.email}
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-wood-light/60 text-sm mb-1">Location</div>
+                      <div className="text-white text-lg font-semibold">
+                        {contactInfo.city}, {contactInfo.state}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-8 border-t border-accent/20">
+                  <div className="text-wood-light/80 mb-4">Business Hours</div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-white">
+                      <span>Monday - Friday</span>
+                      <span className="font-semibold">8:00 AM - 6:00 PM</span>
+                    </div>
+                    <div className="flex justify-between text-white">
+                      <span>Saturday</span>
+                      <span className="font-semibold">9:00 AM - 4:00 PM</span>
+                    </div>
+                    <div className="flex justify-between text-wood-light/60">
+                      <span>Sunday</span>
+                      <span>Closed</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Logo Section */}
+              <div className="flex justify-center order-2 lg:order-1">
+                <Image
+                  src="/logo.svg"
+                  alt="The Deck Man"
+                  width={336}
+                  height={168}
+                  className="!w-[336px] !h-auto opacity-90"
+                />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -1720,7 +1720,7 @@ export function DarkLuxury() {
               className="lg:col-span-4"
             >
               {/* Enhanced Logo in Footer */}
-              <div className="relative inline-block group mb-8">
+              <div className="relative hidden md:inline-block group mb-8">
                 {/* Glowing background */}
                 <div className="absolute -inset-6 bg-gradient-to-br from-accent/20 via-wood-dark/10 to-accent/20 rounded-3xl blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 

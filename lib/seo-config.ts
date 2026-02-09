@@ -8,8 +8,8 @@ export const siteConfig = {
   business: {
     name: 'The Deck Man',
     legalName: 'The Deck Man, LLC',
-    phone: '+1 (760) 555-1234',
-    email: 'info@thedeckmansd.com',
+    phone: '+1 (442) 378-9771',
+    email: 'thedeckmansd@gmail.com',
     address: {
       street: '35165 Citron Ln',
       city: 'Fallbrook',
@@ -66,6 +66,14 @@ export const siteConfig = {
       'deck staining',
       'deck resurfacing',
 
+      // Wood Types & Materials
+      'redwood deck restoration',
+      'cedar deck restoration',
+      'ipe deck restoration',
+      'pressure treated deck restoration',
+      'composite deck cleaning',
+      'exotic wood deck care',
+
       // Шлифовка и покраска
       'deck sanding service',
       'deck painting service',
@@ -97,10 +105,10 @@ export const siteConfig = {
       'deck contractor San Diego',
       'deck repair near me',
 
-      // Fallbrook специфичные
-      'deck repair Fallbrook',
-      'deck restoration Fallbrook',
-      'deck contractor Fallbrook',
+      // San Diego County специфичные
+      'deck repair San Diego County',
+      'deck restoration San Diego County',
+      'deck contractor San Diego County',
 
       // Коммерческие + сервисные
       'residential deck repair',
@@ -168,8 +176,8 @@ export const siteConfig = {
       'deck sanding San Diego',
       'deck painting San Diego',
       'deck contractor San Diego',
-      'deck repair Fallbrook',
-      'deck restoration Fallbrook',
+      'deck repair San Diego County',
+      'deck restoration San Diego County',
       'deck repair near me'
     ],
     commercial: [

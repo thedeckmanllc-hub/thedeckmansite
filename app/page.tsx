@@ -13,7 +13,12 @@ export const metadata: Metadata = genMeta({
     'deck cleaning',
     'deck sealing',
     'wood deck restoration san diego',
-    'deck contractor fallbrook',
+    'deck contractor san diego county',
+    'redwood deck restoration',
+    'cedar deck refinishing',
+    'ipe deck maintenance',
+    'pressure treated deck repair',
+    'composite deck cleaning',
     'professional deck services california',
     'deck maintenance san diego county'
   ],

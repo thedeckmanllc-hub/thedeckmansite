@@ -73,7 +73,7 @@ export const servicesContent: ServiceContent[] = [
     ],
     seo: {
       title: 'Deck Restoration Services in Fallbrook, CA | The Deck Man',
-      description: 'Professional deck restoration in Fallbrook, CA. Complete deck revival with structural assessment, repairs, and premium finishes. Free estimates. Call (760) 555-1234.',
+      description: 'Professional deck restoration in Fallbrook, CA. Complete deck revival with structural assessment, repairs, and premium finishes. Free estimates. Call (442) 378-9771.',
       keywords: ['deck restoration fallbrook', 'deck restoration san diego county', 'restore old deck', 'deck revival', 'deck renewal services']
     }
   },
@@ -133,7 +133,7 @@ export const servicesContent: ServiceContent[] = [
     ],
     seo: {
       title: 'Deck Refinishing Services in Fallbrook, CA | The Deck Man',
-      description: 'Professional deck refinishing in Fallbrook, CA. Expert sanding, staining, and sealing services. Premium quality finishes. Free estimates. Call (760) 555-1234.',
+      description: 'Professional deck refinishing in Fallbrook, CA. Expert sanding, staining, and sealing services. Premium quality finishes. Free estimates. Call (442) 378-9771.',
       keywords: ['deck refinishing fallbrook', 'deck refinishing san diego', 'deck sanding staining', 'refinish deck california', 'deck surface refinishing']
     }
   },
@@ -193,7 +193,7 @@ export const servicesContent: ServiceContent[] = [
     ],
     seo: {
       title: 'Deck Staining & Painting Services in Fallbrook, CA | The Deck Man',
-      description: 'Professional deck staining and painting in Fallbrook, CA. Premium quality finishes, wide color selection. Expert application. Free estimates. Call (760) 555-1234.',
+      description: 'Professional deck staining and painting in Fallbrook, CA. Premium quality finishes, wide color selection. Expert application. Free estimates. Call (442) 378-9771.',
       keywords: ['deck staining fallbrook', 'deck painting san diego', 'deck color stain', 'paint deck california', 'deck finishing services']
     }
   },
@@ -253,7 +253,7 @@ export const servicesContent: ServiceContent[] = [
     ],
     seo: {
       title: 'Deck Sealing Services in Fallbrook, CA | The Deck Man',
-      description: 'Professional deck sealing in Fallbrook, CA. Advanced waterproofing and UV protection for your deck. Expert application. Free estimates. Call (760) 555-1234.',
+      description: 'Professional deck sealing in Fallbrook, CA. Advanced waterproofing and UV protection for your deck. Expert application. Free estimates. Call (442) 378-9771.',
       keywords: ['deck sealing fallbrook', 'deck waterproofing san diego', 'seal deck california', 'deck protection services', 'waterproof deck coating']
     }
   },
@@ -313,7 +313,7 @@ export const servicesContent: ServiceContent[] = [
     ],
     seo: {
       title: 'Deck Repair Services in Fallbrook, CA | The Deck Man',
-      description: 'Professional deck repair in Fallbrook, CA. Expert fixing of railings, boards, stairs, and structural issues. Safety first. Free inspection. Call (760) 555-1234.',
+      description: 'Professional deck repair in Fallbrook, CA. Expert fixing of railings, boards, stairs, and structural issues. Safety first. Free inspection. Call (442) 378-9771.',
       keywords: ['deck repair fallbrook', 'deck repair san diego', 'fix deck boards', 'deck railing repair', 'rotted deck repair california']
     }
   },
@@ -373,7 +373,7 @@ export const servicesContent: ServiceContent[] = [
     ],
     seo: {
       title: 'Deck Cleaning Services in Fallbrook, CA | The Deck Man',
-      description: 'Professional deck cleaning and power washing in Fallbrook, CA. Safe removal of mold, dirt, and old finishes. Expert service. Free estimates. Call (760) 555-1234.',
+      description: 'Professional deck cleaning and power washing in Fallbrook, CA. Safe removal of mold, dirt, and old finishes. Expert service. Free estimates. Call (442) 378-9771.',
       keywords: ['deck cleaning fallbrook', 'deck power washing san diego', 'deck pressure washing', 'clean deck california', 'remove deck mold mildew']
     }
   }
