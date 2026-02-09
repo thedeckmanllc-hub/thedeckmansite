@@ -182,6 +182,13 @@ export const keywordSets = {
       'deck staining San Diego',
       'deck refinishing San Diego'
     ],
+    sanDiegoCounty: [
+      'deck repair San Diego County',
+      'deck restoration San Diego County',
+      'deck contractor San Diego County',
+      'deck services San Diego County',
+      'deck refinishing San Diego County'
+    ],
     fallbrook: [
       'deck repair Fallbrook',
       'deck restoration Fallbrook',
