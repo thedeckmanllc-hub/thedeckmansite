@@ -315,12 +315,6 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
                   </svg>
                 </span>
               </Link>
-              <a
-                href={`tel:${contactInfo.phone}`}
-                className="px-10 py-5 bg-charcoal text-white font-montserrat font-bold text-lg rounded-xl border-2 border-accent hover:border-accent hover:bg-charcoal/80 transition-all duration-300"
-              >
-                Call now: {contactInfo.phone}
-              </a>
             </div>
           </motion.div>
         </div>

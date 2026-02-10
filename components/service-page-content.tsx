@@ -96,13 +96,6 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
                 <span className="relative z-10">Free Estimate</span>
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
               </Link>
-              <a
-                href={`tel:${contactInfo.phone}`}
-                className="bg-charcoal/50 text-white font-montserrat font-bold rounded-lg border-2 border-accent/30 hover:border-accent hover:bg-charcoal transition-all duration-300"
-                style={{padding: 'clamp(1rem, 1.3vw, 1rem) clamp(2rem, 2.5vw, 2rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1rem)'}}
-              >
-                Call {contactInfo.phone}
-              </a>
             </div>
           </motion.div>
         </div>
@@ -279,12 +272,6 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
                 <span className="relative z-10">Free Estimate</span>
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
               </Link>
-              <a
-                href={`tel:${contactInfo.phone}`}
-                className="px-8 py-4 bg-charcoal text-white font-montserrat font-bold rounded-lg border-2 border-accent hover:border-accent hover:bg-charcoal/80 transition-all duration-300"
-              >
-                Call Now: {contactInfo.phone}
-              </a>
             </div>
           </motion.div>
         </div>
