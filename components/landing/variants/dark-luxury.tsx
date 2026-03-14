@@ -611,7 +611,7 @@ export function DarkLuxury() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent" />
 
                   <div className="absolute inset-0 flex flex-col justify-end p-6">
                     <motion.div
@@ -1409,7 +1409,7 @@ export function DarkLuxury() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 items-end">
             <motion.form
               onSubmit={handleSubmit}
               initial={{ opacity: 0, x: 30 }}
@@ -1561,7 +1561,7 @@ export function DarkLuxury() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-8 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {/* Animated background */}
                   <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1590,6 +1590,14 @@ export function DarkLuxury() {
                   {/* Shine effect */}
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                 </button>
+
+                <p className="text-white/50 text-xs text-center mt-4 leading-relaxed">
+                  By submitting this form, you agree to our{' '}
+                  <a href="/privacy-policy" className="text-accent/80 hover:text-accent underline underline-offset-2 transition-colors">
+                    Privacy Policy
+                  </a>{' '}
+                  and consent to receive calls, texts, or emails regarding your inquiry.
+                </p>
 
                 {submitStatus === 'error' && (
                   <p className="text-red-400 text-center mt-4">
@@ -1881,7 +1889,7 @@ export function DarkLuxury() {
           <div className="border-t border-accent/20 pt-8">
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
               <p className="text-wood-light/50 text-sm text-center">
-                &copy; 2026 The Deck Man. All rights reserved. | Licensed & Insured
+                &copy; 2026 The Deck Man. All rights reserved. | Licensed &amp; Insured | <a href="/privacy-policy" className="hover:text-accent transition-colors underline underline-offset-2">Privacy Policy</a>
               </p>
             </div>
           </div>
