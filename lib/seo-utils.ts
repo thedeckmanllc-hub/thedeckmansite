@@ -174,22 +174,60 @@ export function generateProjectSchema(project: {
 }) {
   const schema: any = {
     '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
-    name: project.title,
+    '@type': 'Article',
+    headline: project.title,
     description: project.description,
-    creator: {
+    author: {
       '@type': 'Organization',
-      name: siteConfig.business.name
+      name: siteConfig.business.name,
+      url: siteConfig.url
     },
-    image: project.images.map(img => ({
-      '@type': 'ImageObject',
-      url: img.url.startsWith('http') ? img.url : `${siteConfig.url}${img.url}`,
-      description: img.alt
-    }))
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.business.name,
+      url: siteConfig.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url}/logo.png`
+      }
+    },
+    image: project.images.map(img =>
+      img.url.startsWith('http') ? img.url : `${siteConfig.url}${img.url}`
+    ),
+    datePublished: '2024-01-01',
+    dateModified: '2025-01-01',
+    mainEntityOfPage: {
+      '@type': 'WebPage'
+    }
   }
 
-  if (project.testimonial) {
-    schema.review = {
+  return schema
+}
+
+export function generateLocalBusinessReviewSchema(project: {
+  testimonial?: {
+    name: string
+    text: string
+    rating: number
+  }
+}) {
+  if (!project.testimonial) return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: siteConfig.business.name,
+    telephone: siteConfig.business.phone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteConfig.business.address.street,
+      addressLocality: siteConfig.business.address.city,
+      addressRegion: siteConfig.business.address.state,
+      postalCode: siteConfig.business.address.zip,
+      addressCountry: 'US'
+    },
+    url: siteConfig.url,
+    review: {
       '@type': 'Review',
       author: {
         '@type': 'Person',
@@ -203,8 +241,6 @@ export function generateProjectSchema(project: {
       reviewBody: project.testimonial.text
     }
   }
-
-  return schema
 }
 
 export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {

@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getProjectBySlug } from '@/lib/projects-content'
 import { ProjectPageContent } from '@/components/project-page-content'
-import { generateProjectMetadata, generateProjectSchema, generateBreadcrumbSchema } from '@/lib/seo-utils'
+import { generateProjectMetadata, generateProjectSchema, generateBreadcrumbSchema, generateLocalBusinessReviewSchema } from '@/lib/seo-utils'
 
 const slug = 'oceanside-beach-house'
 
@@ -45,6 +45,10 @@ export default function OceansideBeachHousePage() {
     { name: project.title, url: `/projects/${project.slug}` },
   ])
 
+  const reviewSchema = generateLocalBusinessReviewSchema({
+    testimonial: project.testimonial,
+  })
+
   return (
     <>
       <script
@@ -55,6 +59,12 @@ export default function OceansideBeachHousePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {reviewSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+        />
+      )}
       <ProjectPageContent project={project} />
     </>
   )
