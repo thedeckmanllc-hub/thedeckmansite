@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'The Deck Man - Professional Deck Restoration',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteConfig.defaultMetadata.title,
     description: siteConfig.description,
-    images: ['/og-image.png'],
+    images: ['/og-image.webp'],
     creator: '@thedeckman',
   },
   robots: {
@@ -63,9 +63,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  verification: {},
   alternates: {
     canonical: siteConfig.url,
   },

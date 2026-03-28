@@ -149,6 +149,98 @@ export const projectsContent: ProjectContent[] = [
     }
   },
   {
+    slug: 'pergola-deck-railing-painting',
+    title: 'Pergola & Railing Restoration',
+    category: 'Cleaning & Painting',
+    location: 'San Diego County, CA',
+    duration: 'Project Specific',
+    size: '1,700 sq ft',
+    rating: '5.0',
+    featured: true,
+    shortDescription: 'A 1,700 sq ft pergola and deck railings were cleaned of dirt and mildew, sanded, and painted to restore their original beauty.',
+    heroTitle: 'Restoring a Massive Pergola & Deck Railings to Like-New Condition',
+    challenge: 'This expansive 1,700 square foot pergola structure and all associated deck railings had accumulated years of dirt, mildew, and environmental buildup that dulled their appearance and compromised the wood\'s protective finish. The mildew growth was particularly severe on the pergola slats and railing surfaces, creating unsightly green and gray discoloration throughout the structure. The sheer scale of the project — spanning the entire length of the home with hundreds of individual slats and railing balusters — required meticulous planning and professional-grade equipment to ensure consistent results. Previous surface coatings had deteriorated, leaving the wood vulnerable to further moisture damage and decay. The homeowners wanted a complete transformation that would not only restore the structure\'s appearance but provide lasting protection against the Southern California climate.',
+    solution: 'Our team executed a comprehensive multi-phase restoration process for this large-scale pergola and railing project. We began by thoroughly cleaning all surfaces using professional-grade solutions to eliminate deeply embedded dirt, mildew, and biological growth from every slat, post, and baluster. The entire structure was then carefully sanded to remove the old deteriorated finish and create an optimal surface for new paint adhesion. We set up extensive protective sheeting and masking to shield the home, pool area, and surrounding landscaping from overspray during the painting phase. Using professional airless spray equipment, we applied premium exterior paint to every surface of the pergola and railings, ensuring complete and even coverage across all 1,700 square feet of structure. The result is a beautifully uniform finish that looks brand new and provides excellent protection against weathering, UV damage, and moisture.',
+    results: [
+      'Complete removal of dirt, mildew, and biological growth',
+      'All 1,700 sq ft of pergola structure sanded and painted',
+      'Deck railings restored to like-new condition',
+      'Professional masking protected home and landscaping',
+      'Even, consistent paint coverage across entire structure',
+      'Long-lasting protective finish against weather and UV'
+    ],
+    images: [
+      {
+        url: '/images/6/1.webp',
+        alt: 'Aerial view of completed pergola and deck restoration',
+        caption: 'Aerial view of the beautifully restored 1,700 sq ft pergola'
+      },
+      {
+        url: '/images/6/2.webp',
+        alt: 'Restored pergola walkway with pool view',
+        caption: 'Freshly painted pergola walkway overlooking the pool'
+      },
+      {
+        url: '/images/6/3.webp',
+        alt: 'Painted pergola slats from above',
+        caption: 'Evenly painted pergola slats viewed from the rooftop'
+      },
+      {
+        url: '/images/6/4.webp',
+        alt: 'Before and after comparison on deck railing',
+        caption: 'Before and after — mildew-covered vs restored railing'
+      },
+      {
+        url: '/images/6/5.webp',
+        alt: 'Dirty railing before restoration',
+        caption: 'Mildew and dirt buildup on railings before cleaning'
+      },
+      {
+        url: '/images/6/6.webp',
+        alt: 'Pergola slats before painting',
+        caption: 'Raw wood pergola slats before sanding and painting'
+      },
+      {
+        url: '/images/6/7.webp',
+        alt: 'Scaffolding and preparation for painting',
+        caption: 'Professional prep work with scaffolding and protective sheeting'
+      },
+      {
+        url: '/images/6/8.webp',
+        alt: 'Spray painting equipment under pergola',
+        caption: 'Airless spray equipment set up for painting process'
+      },
+      {
+        url: '/images/6/9.webp',
+        alt: 'Pergola during sanding process',
+        caption: 'Pergola after sanding with masking tape in place'
+      },
+      {
+        url: '/images/6/10.webp',
+        alt: 'Exterior preparation with ladder and sheeting',
+        caption: 'Extensive exterior masking to protect surrounding areas'
+      },
+      {
+        url: '/images/6/11.webp',
+        alt: 'Aerial view of pergola during preparation phase',
+        caption: 'Aerial view showing protective covering during prep work'
+      }
+    ],
+    details: [
+      { label: 'Project Type', value: 'Cleaning, Sanding & Painting' },
+      { label: 'Duration', value: 'Project Specific' },
+      { label: 'Structure Size', value: '1,700 square feet' },
+      { label: 'Service', value: 'Pergola & Railing Restoration' },
+      { label: 'Finish', value: 'Premium Exterior Paint' },
+      { label: 'Scope', value: 'Pergola Slats, Posts, Railings & Balusters' }
+    ],
+    seo: {
+      title: 'Pergola & Deck Railing Painting San Diego | The Deck Man',
+      description: 'Professional pergola cleaning, sanding, and painting services. See our 1,700 sq ft pergola and deck railing restoration in San Diego County.',
+      keywords: ['pergola painting san diego', 'deck railing painting', 'pergola restoration', 'pergola cleaning and painting', 'deck railing refinishing']
+    }
+  },
+  {
     slug: 'deck-refinishing-project',
     title: 'Deck Refinishing Project',
     category: 'Staining & Refinishing',

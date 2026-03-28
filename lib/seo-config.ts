@@ -85,7 +85,6 @@ export const siteConfig = {
 
       // Материалы
       'wood deck repair',
-      'redwood deck restoration',
       'pressure treated deck repair',
       'cedar deck sanding',
       'composite deck repair',
@@ -258,7 +257,7 @@ export const jsonLdConfig = {
     '@type': 'LocalBusiness',
     '@id': `${siteConfig.url}/#localbusiness`,
     name: siteConfig.business.name,
-    image: `${siteConfig.url}/og-image.png`,
+    image: `${siteConfig.url}/og-image.webp`,
     telephone: siteConfig.business.phone,
     address: {
       '@type': 'PostalAddress',

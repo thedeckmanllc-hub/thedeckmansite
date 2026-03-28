@@ -89,10 +89,10 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
             <div className="flex flex-col sm:flex-row justify-center" style={{gap: 'clamp(1rem, 1.5vw, 1rem)'}}>
               <Link
                 href="/#contact"
-                className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50"
+                className="group relative inline-flex items-center justify-center gap-2 cta-gradient text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50"
                 style={{padding: 'clamp(1rem, 1.3vw, 1rem) clamp(2rem, 2.5vw, 2rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1rem)'}}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10">Free Estimate</span>
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
               </Link>
@@ -100,6 +100,9 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       {/* Long Description */}
       <section className="bg-gradient-to-b from-charcoal via-dark to-charcoal relative overflow-hidden" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
@@ -140,6 +143,8 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
         </div>
       </section>
 
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       {/* Process Section */}
       <section className="bg-gradient-to-b from-charcoal to-dark" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
@@ -179,8 +184,8 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
                 <div className="bg-gradient-to-br from-charcoal via-dark to-charcoal rounded-2xl border border-accent/20 hover:border-accent/40 transition-all duration-300 h-full group hover:shadow-xl hover:shadow-accent/10" style={{padding: 'clamp(1.5rem, 2vw, 2rem)'}}>
                   {/* Step Number */}
                   <div className="absolute -top-6 left-8">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center shadow-lg shadow-accent/30">
-                      <span className="font-montserrat font-black text-dark text-xl">
+                    <div className="w-12 h-12 rounded-full cta-gradient flex items-center justify-center shadow-lg shadow-accent/30">
+                      <span className="font-montserrat font-black text-white text-xl">
                         {step.step}
                       </span>
                     </div>
@@ -205,6 +210,9 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
           </div>
         </div>
       </section>
+
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
       {/* FAQ Section */}
       <section className="bg-gradient-to-b from-dark to-charcoal" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
@@ -247,6 +255,9 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
         </div>
       </section>
 
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+
       {/* CTA Section */}
       <section className="bg-gradient-to-b from-charcoal to-dark" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
         <div className="mx-auto px-6" style={{maxWidth: 'min(92vw, 1200px)'}}>
@@ -266,9 +277,9 @@ export function ServicePageContent({ service }: ServicePageContentProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/#contact"
-                className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50 px-8 py-4 text-base"
+                className="group relative inline-flex items-center justify-center gap-2 cta-gradient text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50 px-8 py-4 text-base"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="relative z-10">Free Estimate</span>
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
               </Link>

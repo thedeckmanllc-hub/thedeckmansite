@@ -21,7 +21,7 @@ export function generateMetadata(params: SEOParams): Metadata {
     title,
     description,
     keywords,
-    image = '/og-image.png',
+    image = '/og-image.webp',
     url,
     type = 'website',
     publishedTime,
@@ -90,10 +90,7 @@ export function generateMetadata(params: SEOParams): Metadata {
         'max-snippet': -1,
       },
     },
-    verification: {
-      google: 'your-google-verification-code',
-      yandex: 'your-yandex-verification-code',
-    },
+    verification: {},
   }
 }
 

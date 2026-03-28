@@ -175,6 +175,7 @@
   .section-padding {
     padding-top: var(--spacing-section);
     padding-bottom: var(--spacing-section);
+    scroll-margin-top: 5rem;
   }
 
   .btn {
@@ -219,6 +220,12 @@
 @layer utilities {
   .text-gradient-brown {
     @apply bg-gradient-to-r from-wood-dark to-accent bg-clip-text text-transparent;
+  }
+  .cta-gradient {
+    background: linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) 60%, var(--color-wood-light) 100%);
+  }
+  .cta-gradient-hover {
+    background: linear-gradient(to right, var(--color-wood-light) 0%, var(--color-accent) 40%, var(--color-accent) 100%);
   }
 }
 

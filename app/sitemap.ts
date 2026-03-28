@@ -34,5 +34,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...routes, ...serviceRoutes, ...projectRoutes]
+  // Static pages
+  const staticRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+  ]
+
+  return [...routes, ...serviceRoutes, ...projectRoutes, ...staticRoutes]
 }

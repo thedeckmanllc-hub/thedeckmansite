@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { servicesData, contactInfo, serviceSlugMap } from '@/lib/types'
@@ -23,6 +23,7 @@ export function DarkLuxury() {
   const [focusedField, setFocusedField] = useState<string | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mapZoom, setMapZoom] = useState(9)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [errors, setErrors] = useState({
@@ -34,12 +35,35 @@ export function DarkLuxury() {
   })
   const [touchStart, setTouchStart] = useState<number>(0)
   const [touchEnd, setTouchEnd] = useState<number>(0)
+  const [isMobile, setIsMobile] = useState(true) // default true so mobile never flashes invisible
+  const prefersReducedMotion = useReducedMotion()
 
-  // Scroll detection for navbar
+  // Detect mobile + map zoom
+  useEffect(() => {
+    const mobile = window.innerWidth < 768
+    setIsMobile(mobile)
+    setMapZoom(window.innerWidth < 1024 ? 9 : 10)
+  }, [])
+
+  // No animations on mobile, simplified animations on desktop
+  const noMotion = prefersReducedMotion || isMobile
+  const fadeUp = noMotion ? {} : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5 } }
+  const fadeIn = noMotion ? {} : { initial: { opacity: 0 }, whileInView: { opacity: 1 }, viewport: { once: true }, transition: { duration: 0.5 } }
+  const stagger = (index: number) => noMotion ? 0 : index * 0.1
+
+  // Scroll detection for navbar — on mobile always compact, on desktop expand only on hero
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      const mobile = window.innerWidth < 768
+      if (mobile) {
+        setIsScrolled(true) // always compact on mobile
+      } else {
+        setIsScrolled(window.scrollY > 50)
+      }
     }
+
+    // Set initial state
+    handleScroll()
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
@@ -315,9 +339,7 @@ export function DarkLuxury() {
   return (
     <div className="bg-dark">
       {/* Header */}
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+      <header
         className={`sticky top-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-dark/98 backdrop-blur-md border-b border-accent/30 shadow-xl shadow-accent/10'
@@ -329,8 +351,8 @@ export function DarkLuxury() {
             {/* Dynamic Logo */}
             <Link href="/#hero">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={noMotion ? undefined : { opacity: 0, x: -20 }}
+                animate={noMotion ? undefined : { opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
                 className="cursor-pointer"
               >
@@ -388,11 +410,11 @@ export function DarkLuxury() {
               >
                 <Link
                   href="#contact"
-                  className={`group relative inline-flex items-center gap-2 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50 ${
+                  className={`group relative inline-flex items-center gap-2 cta-gradient text-white font-montserrat font-bold rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/50 ${
                     isScrolled ? 'px-6 py-3 text-sm' : 'px-8 py-4 text-base'
                   }`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <span className="relative z-10">Free Estimate</span>
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                 </Link>
@@ -402,7 +424,7 @@ export function DarkLuxury() {
             {/* Mobile Menu Button */}
             <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-2xl text-wood-light hover:text-accent transition-colors relative group"
+              className="md:hidden text-3xl text-white hover:text-accent transition-colors relative group"
               whileTap={{ scale: 0.9 }}
             >
               <motion.div
@@ -455,9 +477,9 @@ export function DarkLuxury() {
                     <Link
                       href="#contact"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="group relative block bg-gradient-to-r from-accent via-accent to-wood-dark text-white px-6 py-3 rounded-lg font-montserrat font-bold text-center overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/50"
+                      className="group relative block cta-gradient text-white px-6 py-3 rounded-lg font-montserrat font-bold text-center overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-accent/50"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative z-10">Free Estimate</span>
                       <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
                     </Link>
@@ -467,10 +489,10 @@ export function DarkLuxury() {
             )}
           </AnimatePresence>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Hero Section */}
-      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative min-h-[calc(100dvh-4rem)] md:min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -484,21 +506,21 @@ export function DarkLuxury() {
           <div className="absolute inset-0 bg-dark/90" />
         </div>
 
-        {/* Background elements */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-wood-dark/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-2xl" />
+        {/* Background elements - hidden on mobile for performance */}
+        <div className="hidden md:block absolute top-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute bottom-0 right-0 w-96 h-96 bg-wood-dark/20 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute top-1/2 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-2xl" />
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={noMotion ? undefined : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: noMotion ? 0 : 1 }}
           className="relative z-10 text-white w-full px-6 py-20"
         >
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={noMotion ? false : { opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: noMotion ? 0 : 0.8 }}
             className="flex justify-center mb-8"
           >
             <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/30 px-4 py-2 rounded-full">
@@ -525,11 +547,11 @@ export function DarkLuxury() {
           <div className="flex flex-col sm:flex-row justify-center px-4" style={{gap: 'clamp(1rem, 1.5vw, 1.5rem)', marginBottom: 'clamp(3rem, 5vw, 4rem)'}}>
             <Link
               href="#contact"
-              className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+              className="group relative inline-flex items-center justify-center gap-3 cta-gradient text-white font-montserrat font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
               style={{padding: 'clamp(1rem, 1.3vw, 1.25rem) clamp(2rem, 2.5vw, 2.5rem)', fontSize: 'clamp(0.95rem, 1.1vw, 1.125rem)'}}
             >
               {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               {/* Button content */}
               <span className="relative z-10 flex items-center gap-2 justify-center">
@@ -549,15 +571,15 @@ export function DarkLuxury() {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={noMotion ? undefined : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + index * 0.1, duration: 0.6 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border-2 border-accent/30 hover:border-accent transition-all"
-                style={{padding: 'clamp(1.5rem, 2.5vw, 2rem)'}}
+                transition={{ delay: noMotion ? 0 : 0.5 + index * 0.1, duration: noMotion ? 0 : 0.6 }}
+                whileHover={noMotion ? undefined : { scale: 1.05, y: -5 }}
+                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border-2 border-accent/30 hover:border-accent transition-all text-center"
+                style={{padding: 'clamp(0.75rem, 1.5vw, 1.25rem)'}}
               >
-                <div className="font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light" style={{fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', marginBottom: 'clamp(0.5rem, 1vw, 0.75rem)'}}>{stat.number}</div>
-                <div className="font-semibold text-wood-light uppercase tracking-wider" style={{fontSize: 'clamp(0.85rem, 1vw, 1rem)'}}>{stat.label}</div>
+                <div className="font-black text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light" style={{fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', marginBottom: 'clamp(0.25rem, 0.5vw, 0.4rem)'}}>{stat.number}</div>
+                <div className="font-semibold text-wood-light uppercase tracking-wider" style={{fontSize: 'clamp(0.75rem, 0.9vw, 0.875rem)'}}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -570,9 +592,7 @@ export function DarkLuxury() {
 
         <div className="mx-auto px-6" style={{maxWidth: 'var(--container-ultra)'}}>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeUp}
             className="text-center"
             style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
@@ -592,15 +612,13 @@ export function DarkLuxury() {
           </motion.div>
 
           {/* Elegant Gallery Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {projectsContent.slice(0, 4).map((project, index) => (
-              <Link key={project.slug} href={`/projects/${project.slug}`} className="group relative block">
+          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory lg:overflow-x-visible lg:justify-center">
+            {projectsContent.slice(0, 5).map((project, index) => (
+              <Link key={project.slug} href={`/projects/${project.slug}`} className="group relative block flex-shrink-0 w-[280px] sm:w-[300px] lg:w-[18%] snap-center">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer border-2 border-accent/20 group-hover:border-accent/60 transition-all duration-300"
+                  {...fadeUp}
+                  transition={{ duration: 0.5, delay: stagger(index) }}
+                  className="relative aspect-[2/3] rounded-2xl overflow-hidden cursor-pointer border-2 border-accent/20 group-hover:border-accent/60 transition-all duration-300"
                 >
                   {project.images[0]?.url && (
                     <Image
@@ -608,25 +626,23 @@ export function DarkLuxury() {
                       alt={project.images[0].alt}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 280px, (max-width: 1024px) 300px, 18vw"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
 
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
+                  <div className="absolute inset-0 flex flex-col justify-end p-4">
                     <motion.div
-                      initial={{ y: 20, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.2 + index * 0.1 }}
+                      {...fadeUp}
+                      transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
                     >
-                      <span className="text-accent font-montserrat text-xs font-bold uppercase tracking-wider mb-3 block">
+                      <span className="text-accent font-montserrat text-[10px] font-bold uppercase tracking-wider mb-1.5 block">
                         {project.category}
                       </span>
-                      <h3 className="text-white font-montserrat font-black text-xl md:text-2xl mb-2 leading-tight">
+                      <h3 className="text-white font-montserrat font-black text-sm lg:text-base mb-1 leading-tight">
                         {project.title}
                       </h3>
-                      <p className="text-wood-light/80 text-sm">{project.location}</p>
+                      <p className="text-wood-light/80 text-xs">{project.location}</p>
                     </motion.div>
                   </div>
 
@@ -640,81 +656,77 @@ export function DarkLuxury() {
 
       {/* Why Choose Us Section */}
       <section id="why" className="section-padding bg-gradient-to-br from-charcoal via-dark to-charcoal relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-full bg-gradient-radial from-accent/10 to-transparent" />
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeUp}
             className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-20 h-1 bg-gradient-to-r from-transparent to-accent" />
+            <div className="inline-flex items-center gap-3 mb-6">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
               <span className="text-accent font-montserrat font-bold text-sm tracking-widest uppercase">
                 WHY CHOOSE US
               </span>
-              <div className="w-20 h-1 bg-gradient-to-l from-transparent to-accent" />
+              <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8 leading-tight">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white leading-tight" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               The Deck Man <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Difference</span>
             </h2>
-            <p className="text-wood-light/80 text-xl leading-relaxed mb-16 max-w-3xl mx-auto">
+            <p className="text-adaptive-subtitle text-wood-light/80 leading-relaxed max-w-3xl mx-auto">
               We&apos;re not just deck contractors – we&apos;re craftsmen who take pride in every project.
               Our commitment to quality and customer satisfaction sets us apart.
             </p>
+          </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                { title: 'Licensed & Insured', desc: 'Full licensing and comprehensive insurance for your protection' },
-                { title: 'Quality Materials', desc: 'Premium products from trusted manufacturers' },
-                { title: 'Expert Team', desc: '15+ years of combined experience in deck restoration' },
-                { title: 'Warranty Backed', desc: 'All work comes with our satisfaction guarantee' }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-gradient-to-br from-wood-dark/20 to-charcoal/20 border border-accent/20 rounded-xl p-8 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300"
-                >
-                  <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6 mx-auto">
-                    <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h4 className="text-white font-montserrat font-bold mb-3 text-xl">{item.title}</h4>
-                  <p className="text-wood-light/70 text-base leading-relaxed">{item.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="mt-16 flex justify-center"
-            >
-              <a
-                href="#contact"
-                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            {[
+              { title: 'Licensed & Insured', desc: 'Full licensing and comprehensive insurance for your protection' },
+              { title: 'Quality Materials', desc: 'Premium products from trusted manufacturers' },
+              { title: 'Expert Team', desc: '15+ years of combined experience in deck restoration' },
+              { title: 'Warranty Backed', desc: 'All work comes with our satisfaction guarantee' }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: stagger(index) }}
+                className="bg-gradient-to-br from-wood-dark/20 to-charcoal/20 border border-accent/20 rounded-xl p-5 md:p-8 text-center hover:border-accent/40 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300"
               >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="w-10 h-10 md:w-16 md:h-16 bg-accent/20 rounded-full flex items-center justify-center mb-3 md:mb-6 mx-auto">
+                  <svg className="w-5 h-5 md:w-8 md:h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h4 className="text-white font-montserrat font-bold mb-2 md:mb-3 text-base md:text-xl">{item.title}</h4>
+                <p className="text-wood-light/70 text-sm md:text-base leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
 
-                {/* Button content */}
-                <span className="relative z-10">Get Your Free Estimate</span>
-                <svg className="relative z-10 w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
+          {/* CTA Button */}
+          <motion.div
+            {...fadeUp}
+            transition={{ delay: 0.5 }}
+            className="mt-8 md:mt-16 flex justify-center"
+          >
+            <a
+              href="#contact"
+              className="group relative inline-flex items-center gap-2 md:gap-3 px-6 py-3 md:px-10 md:py-5 cta-gradient text-white font-montserrat font-bold text-sm md:text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+            >
+              {/* Animated background */}
+              <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                {/* Shine effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
-              </a>
-            </motion.div>
+              {/* Button content */}
+              <span className="relative z-10">Get Your Free Estimate</span>
+              <svg className="relative z-10 w-4 h-4 md:w-6 md:h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12" />
+            </a>
           </motion.div>
         </div>
       </section>
@@ -725,9 +737,7 @@ export function DarkLuxury() {
 
         <div className="mx-auto px-6" style={{maxWidth: 'var(--container-ultra)'}}>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeUp}
             className="text-center"
             style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
@@ -756,33 +766,26 @@ export function DarkLuxury() {
                   scroll={false}
                 >
                   <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    whileHover={{ y: -15, scale: 1.02 }}
-                    className="group relative bg-gradient-to-br from-charcoal via-dark to-charcoal rounded-2xl border-2 border-accent/20 hover:border-accent transition-all cursor-pointer overflow-hidden h-full"
+                    {...fadeUp}
+                    transition={{ duration: 0.5, delay: stagger(index) }}
+                    whileHover={noMotion ? undefined : { y: -15, scale: 1.02 }}
+                    className="group relative bg-gradient-to-br from-charcoal via-dark to-charcoal rounded-2xl border-2 border-accent/20 hover:border-accent transition-all cursor-pointer overflow-hidden h-full flex flex-col"
                     style={{padding: 'clamp(2rem, 2.5vw, 2.5rem)'}}
                   >
                     {/* Background glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/0 group-hover:from-accent/10 group-hover:to-transparent transition-all duration-500" />
 
-                    <div className="relative z-10">
+                    <div className="relative z-10 flex flex-col h-full">
                       <div className="transform group-hover:scale-110 transition-transform duration-300 text-accent" style={{width: 'clamp(3rem, 4vw, 4rem)', height: 'clamp(3rem, 4vw, 4rem)', marginBottom: 'clamp(1.5rem, 2vw, 2rem)'}}>
                         <ServiceIcon icon={service.icon} />
-                      </div>
-                      <div style={{marginBottom: 'clamp(1rem, 1.5vw, 1rem)'}}>
-                        <span className="inline-block px-3 py-1 bg-accent/20 text-accent text-xs font-bold uppercase tracking-wider rounded-full" style={{marginBottom: 'clamp(1rem, 1.5vw, 1rem)'}}>
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
                       </div>
                       <h3 className="font-montserrat text-adaptive-h3 font-bold text-white group-hover:text-accent transition-colors" style={{marginBottom: 'clamp(1rem, 1.5vw, 1.25rem)'}}>
                         {service.title}
                       </h3>
-                      <p className="text-wood-light/70 text-adaptive-body leading-relaxed group-hover:text-wood-light/90 transition-colors">
+                      <p className="text-wood-light/70 text-adaptive-body leading-relaxed group-hover:text-wood-light/90 transition-colors flex-grow">
                         {service.description}
                       </p>
-                      <div className="flex items-center text-accent opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all" style={{marginTop: 'clamp(1.5rem, 2vw, 2rem)'}}>
+                      <div className="flex items-center text-accent transition-all" style={{marginTop: 'clamp(1.5rem, 2vw, 2rem)'}}>
                         <span className="text-sm font-bold uppercase tracking-wider">Explore Service</span>
                         <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -803,10 +806,9 @@ export function DarkLuxury() {
 
         <div className="max-w-[1600px] mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
+            {...fadeUp}
+            className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
@@ -815,20 +817,20 @@ export function DarkLuxury() {
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               Serving <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">San Diego County</span>
             </h2>
-            <p className="text-2xl text-wood-light/80 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-adaptive-subtitle text-wood-light/80 max-w-4xl mx-auto leading-relaxed">
               Professional deck restoration services throughout the region
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={noMotion ? undefined : { opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-6"
+              className="space-y-2 lg:space-y-4 order-2 lg:order-1"
             >
               {[
                 'San Diego', 'Chula Vista', 'Oceanside', 'Carlsbad',
@@ -836,10 +838,8 @@ export function DarkLuxury() {
               ].map((city, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
+                  {...fadeIn}
+                  transition={{ duration: 0.4, delay: stagger(index) }}
                   className="flex items-center gap-4 p-4 bg-gradient-to-r from-charcoal/80 to-dark/80 rounded-xl border border-accent/20 hover:border-accent/50 transition-all group"
                 >
                   <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/30 transition-colors flex-shrink-0">
@@ -862,22 +862,22 @@ export function DarkLuxury() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={noMotion ? undefined : { opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="relative h-full"
+              className="relative min-h-[350px] lg:min-h-0 h-full order-1 lg:order-2"
             >
               <div className="h-full bg-gradient-to-br from-charcoal/80 to-dark/80 rounded-2xl border-2 border-accent/30 overflow-hidden relative">
                 <div className="absolute inset-0 overflow-hidden">
                   <iframe
-                    src="https://www.google.com/maps/d/u/6/embed?mid=1aewyyfvYwJuSrtHX4-fGH-ggzJsIqrI&ehbc=2E312F"
+                    src={`https://www.google.com/maps/d/u/6/embed?mid=1aewyyfvYwJuSrtHX4-fGH-ggzJsIqrI&ehbc=2E312F&ll=33.0,-117.1&z=${mapZoom}`}
                     className="absolute pointer-events-none"
                     style={{
                       border: 0,
-                      width: '120%',
-                      height: '120%',
-                      left: '-10%',
-                      top: '-10%'
+                      width: '150%',
+                      height: '150%',
+                      left: '-25%',
+                      top: '-25%'
                     }}
                     allowFullScreen
                     loading="lazy"
@@ -892,83 +892,55 @@ export function DarkLuxury() {
       </section>
 
       {/* CTA Strip Section */}
-      <section className="relative py-4 bg-gradient-to-r from-accent via-wood-dark to-accent overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-10">
+      <section className="relative py-4 overflow-hidden" style={{background: `linear-gradient(to right, var(--color-wood-light) 0%, var(--color-accent) 30%, var(--color-accent) 70%, var(--color-wood-light) 100%)`}}>
+        {/* Animated background elements - hidden on mobile for performance */}
+        <div className="hidden md:block absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
-            {/* Logo Section */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="md:flex-shrink-0"
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+          <motion.h3
+            {...fadeUp}
+            className="text-white text-xl md:text-3xl font-bold font-montserrat"
+          >
+            Transform Your Deck Today
+          </motion.h3>
+          <motion.div
+            {...fadeUp}
+          >
+            <Link
+              href="#contact"
+              className="group relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-3 md:py-5 bg-white text-accent font-montserrat font-bold text-base md:text-xl rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50"
             >
-              <Image
-                src="/logo.svg"
-                alt="The Deck Man"
-                width={400}
-                height={200}
-                className="h-24 md:h-40 w-auto brightness-0 invert"
-              />
-            </motion.div>
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-wood-light/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Text content - desktop only */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="hidden lg:block"
-            >
-              <h3 className="text-white text-3xl font-bold font-montserrat">
-                Transform Your Deck Today
-              </h3>
-            </motion.div>
+              {/* Button content */}
+              <span className="relative z-10">Get Free Estimate</span>
+              <svg className="relative z-10 w-5 md:w-6 h-5 md:h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
 
-            {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="md:flex-shrink-0"
-            >
-              <Link
-                href="#contact"
-                className="group relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-3 md:py-5 bg-white text-accent font-montserrat font-bold text-base md:text-xl rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50"
-              >
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-white/90 to-wood-light/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                {/* Button content */}
-                <span className="relative z-10">Get Free Estimate</span>
-                <svg className="relative z-10 w-5 md:w-6 h-5 md:h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-
-                {/* Shine effect */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-accent/20 to-transparent skew-x-12" />
-              </Link>
-            </motion.div>
-          </div>
+              {/* Shine effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-accent/20 to-transparent skew-x-12" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Testimonials Section */}
       <section id="testimonials" className="section-padding bg-dark relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
-        <div className="absolute top-20 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-0 w-96 h-96 bg-wood-dark/10 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute top-20 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute bottom-20 right-0 w-96 h-96 bg-wood-dark/10 rounded-full blur-3xl" />
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
+            {...fadeUp}
+            className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
@@ -977,10 +949,10 @@ export function DarkLuxury() {
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Clients</span> Say
             </h2>
-            <p className="text-xl md:text-2xl text-wood-light/80 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-adaptive-subtitle text-wood-light/80 max-w-3xl mx-auto leading-relaxed">
               Real reviews from real customers
             </p>
           </motion.div>
@@ -1072,9 +1044,9 @@ export function DarkLuxury() {
                     return (
                       <motion.div
                         key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: offset * 0.05, duration: 0.2 }}
+                        initial={noMotion ? undefined : { opacity: 0, y: 20 }}
+                        animate={noMotion ? undefined : { opacity: 1, y: 0 }}
+                        transition={noMotion ? undefined : { delay: offset * 0.05, duration: 0.2 }}
                         className="p-6 bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-2xl border-2 border-accent/30 hover:border-accent/50 transition-all flex flex-col"
                       >
                         {/* Stars */}
@@ -1151,9 +1123,7 @@ export function DarkLuxury() {
 
           {/* Review Platforms */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeUp}
             className="max-w-[1000px] mx-auto"
           >
             <p className="text-center text-wood-light/60 text-xs uppercase tracking-wider mb-6 font-semibold">
@@ -1163,9 +1133,7 @@ export function DarkLuxury() {
               {reviewPlatforms.map((platform, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  {...fadeUp}
                   transition={{ delay: index * 0.1 }}
                   className="flex items-center gap-4 p-4 bg-gradient-to-br from-charcoal/50 to-dark/50 rounded-xl border border-accent/20 hover:border-accent/40 transition-all group"
                 >
@@ -1219,15 +1187,14 @@ export function DarkLuxury() {
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
 
         {/* Decorative background elements */}
-        <div className="absolute top-20 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-0 w-96 h-96 bg-wood-dark/10 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute top-20 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute bottom-20 left-0 w-96 h-96 bg-wood-dark/10 rounded-full blur-3xl" />
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
+            {...fadeUp}
+            className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
@@ -1236,27 +1203,25 @@ export function DarkLuxury() {
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               Got <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Questions?</span>
             </h2>
-            <p className="text-xl md:text-2xl text-wood-light/80 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-adaptive-subtitle text-wood-light/80 max-w-3xl mx-auto leading-relaxed">
               Find answers to the most common questions about our deck restoration services
             </p>
           </motion.div>
 
-          <div className="space-y-6 max-w-[900px] mx-auto">
+          <div className="space-y-3 md:space-y-6 max-w-[900px] mx-auto">
             {faqs.map((faq, index) => {
               const isOpen = openFaqIndex === index
 
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08, duration: 0.5 }}
-                  whileHover={{ y: -5 }}
-                  className={`group relative bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-2xl border-2 transition-all overflow-hidden ${
+                  {...fadeUp}
+                  transition={{ delay: stagger(index), duration: 0.5 }}
+                  whileHover={noMotion ? undefined : { y: -5 }}
+                  className={`group relative bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-xl md:rounded-2xl border md:border-2 transition-all overflow-hidden ${
                     isOpen
                       ? 'border-accent shadow-2xl shadow-accent/20'
                       : 'border-accent/20 hover:border-accent/40'
@@ -1269,9 +1234,9 @@ export function DarkLuxury() {
 
                   <button
                     onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                    className="w-full px-6 py-5 cursor-pointer flex items-center gap-4 text-left relative z-10"
+                    className="w-full px-4 py-3 md:px-6 md:py-5 cursor-pointer flex items-center gap-3 md:gap-4 text-left relative z-10"
                   >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
+                    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
                       isOpen
                         ? 'bg-accent shadow-lg shadow-accent/30'
                         : 'bg-accent/20 group-hover:bg-accent/30'
@@ -1279,7 +1244,7 @@ export function DarkLuxury() {
                       <motion.svg
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className={`w-5 h-5 transition-colors ${
+                        className={`w-4 h-4 md:w-5 md:h-5 transition-colors ${
                           isOpen ? 'text-white' : 'text-accent'
                         }`}
                         fill="none"
@@ -1291,7 +1256,7 @@ export function DarkLuxury() {
                     </div>
 
                     <div className="flex-1">
-                      <h3 className={`font-montserrat font-bold text-lg leading-tight transition-colors ${
+                      <h3 className={`font-montserrat font-bold text-sm md:text-lg leading-tight transition-colors ${
                         isOpen
                           ? 'text-accent'
                           : 'text-white group-hover:text-accent'
@@ -1334,9 +1299,9 @@ export function DarkLuxury() {
                         }}
                         className="overflow-hidden relative z-10"
                       >
-                        <div className="px-6 pb-6 pl-[70px] pr-8">
-                          <div className="pt-5 border-t border-accent/20">
-                            <p className="text-wood-light leading-relaxed text-lg">
+                        <div className="px-4 pb-4 pl-[52px] pr-4 md:px-6 md:pb-6 md:pl-[70px] md:pr-8">
+                          <div className="pt-3 md:pt-5 border-t border-accent/20">
+                            <p className="text-wood-light leading-relaxed text-sm md:text-lg">
                               {faq.answer}
                             </p>
                           </div>
@@ -1351,9 +1316,7 @@ export function DarkLuxury() {
 
           {/* CTA at the bottom */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeUp}
             transition={{ delay: 0.4 }}
             className="mt-20 text-center"
           >
@@ -1362,10 +1325,10 @@ export function DarkLuxury() {
             </p>
             <Link
               href="#contact"
-              className="group relative inline-flex items-center gap-3 px-12 py-6 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+              className="group relative inline-flex items-center gap-3 px-12 py-6 cta-gradient text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
             >
               {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               {/* Button content */}
               <span className="relative z-10">Contact Us for Free Consultation</span>
@@ -1382,17 +1345,17 @@ export function DarkLuxury() {
 
       {/* Contact Form Section */}
       <section id="contact" className="section-padding bg-gradient-to-b from-dark via-charcoal to-dark relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+        <div className="hidden md:block absolute inset-0 opacity-5">
           <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-wood-dark rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
+            {...fadeUp}
+            className="text-center"
+            style={{marginBottom: 'clamp(3rem, 5vw, 5rem)'}}
           >
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="h-px w-16 bg-gradient-to-r from-transparent to-accent" />
@@ -1401,10 +1364,10 @@ export function DarkLuxury() {
               </span>
               <div className="h-px w-16 bg-gradient-to-l from-transparent to-accent" />
             </div>
-            <h2 className="font-montserrat text-5xl md:text-7xl font-black text-white mb-8">
+            <h2 className="font-montserrat text-adaptive-h1 font-black text-white" style={{marginBottom: 'clamp(1.5rem, 2.5vw, 2rem)'}}>
               Request Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-wood-light">Free Quote</span>
             </h2>
-            <p className="text-2xl text-wood-light/80 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-adaptive-subtitle text-wood-light/80 max-w-3xl mx-auto leading-relaxed">
               Fill out the form below and we&apos;ll get back to you within 24 hours
             </p>
           </motion.div>
@@ -1412,7 +1375,7 @@ export function DarkLuxury() {
           <div className="grid lg:grid-cols-2 gap-12 items-end">
             <motion.form
               onSubmit={handleSubmit}
-              initial={{ opacity: 0, x: 30 }}
+              initial={noMotion ? undefined : { opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="p-6 md:p-[52px] bg-gradient-to-br from-charcoal/90 to-dark/90 rounded-3xl border-2 border-accent/40 shadow-2xl shadow-accent/10 lg:order-2"
@@ -1561,10 +1524,10 @@ export function DarkLuxury() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="group relative w-full inline-flex items-center justify-center gap-3 px-8 py-5 cta-gradient text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 mt-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   {/* Animated background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   {/* Button content */}
                   <span className="relative z-10">
@@ -1613,7 +1576,7 @@ export function DarkLuxury() {
             </motion.form>
 
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={noMotion ? undefined : { opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               className="flex flex-col gap-6 lg:order-1"
@@ -1697,17 +1660,15 @@ export function DarkLuxury() {
       <footer className="relative bg-gradient-to-b from-dark via-charcoal to-dark text-white overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-wood-dark/10 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="hidden md:block absolute bottom-0 left-0 w-96 h-96 bg-wood-dark/10 rounded-full blur-3xl" />
 
         <div className="relative z-10 max-w-[1600px] mx-auto px-6 py-16">
           {/* Top Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
             {/* Logo & Description */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              {...fadeUp}
               className="lg:col-span-4"
             >
               {/* Enhanced Logo in Footer */}
@@ -1757,9 +1718,7 @@ export function DarkLuxury() {
 
             {/* Quick Links */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              {...fadeUp}
               transition={{ delay: 0.1 }}
               className="lg:col-span-2"
             >
@@ -1786,9 +1745,7 @@ export function DarkLuxury() {
 
             {/* Services */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              {...fadeUp}
               transition={{ delay: 0.2 }}
               className="lg:col-span-3"
             >
@@ -1832,9 +1789,7 @@ export function DarkLuxury() {
 
             {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              {...fadeUp}
               transition={{ delay: 0.3 }}
               className="lg:col-span-3"
             >

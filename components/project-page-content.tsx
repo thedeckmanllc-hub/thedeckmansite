@@ -160,6 +160,9 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
         </div>
       </section>
 
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+
       {/* Challenge & Solution Section */}
       <section className="py-20 bg-gradient-to-b from-dark via-charcoal to-dark relative overflow-hidden">
         {/* Decorative Elements */}
@@ -247,6 +250,9 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
         </div>
       </section>
 
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+
       {/* Results Section */}
       <section className="bg-gradient-to-b from-dark to-charcoal" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
         <div className="mx-auto px-6" style={{maxWidth: 'min(92vw, 1200px)'}}>
@@ -283,6 +289,9 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
         </div>
       </section>
 
+      {/* Gradient Divider */}
+      <div className="w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+
       {/* CTA Section */}
       <section className="bg-gradient-to-b from-dark to-charcoal" style={{padding: 'clamp(4rem, 5vw, 5rem) 0'}}>
         <div className="mx-auto px-6" style={{maxWidth: 'min(92vw, 1200px)'}}>
@@ -302,10 +311,10 @@ export function ProjectPageContent({ project }: ProjectPageContentProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/#contact"
-                className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-accent via-accent to-wood-dark text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
+                className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 cta-gradient text-white font-montserrat font-bold text-lg rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50"
               >
                 {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-wood-dark via-accent to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 cta-gradient-hover opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Button content */}
                 <span className="relative z-10 flex items-center gap-2">
